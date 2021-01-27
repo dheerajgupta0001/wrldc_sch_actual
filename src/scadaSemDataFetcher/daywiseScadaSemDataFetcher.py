@@ -35,17 +35,15 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
     while currDate <= reqEndDt:
         # fetch sem data for the date
         # print("sem data processing")
-        dailySemData = fetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
-        # dailySemData = testFetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
+        # dailySemData = fetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
+        dailySemData = testFetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
         # print(len(semData))
         semData.extend(dailySemData)
         # print("sem data processing ended")
         # fetch scada data and convert min wise to block wise
-        print("scada data processing started")
         dailyScadaData, timeStamp = fetchScadaSummaryForDate(scadaSemFolderPath, currDate, stateName)
-        print("scada data processing ended")
         times.extend(timeStamp)
-        print("date")
+        # print("date")
         # print(times)
         scadaData.extend(dailyScadaData)
 
@@ -53,7 +51,7 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
     dateList = []
     for col in times:
         dateList.append(dt.datetime.strftime(col, '%Y-%m-%d %H:%M:%S'))
-    print(dateList)
+    # print(dateList)
     # print(len(semData))
     data['scadaData']= scadaData
     data['semData']= semData

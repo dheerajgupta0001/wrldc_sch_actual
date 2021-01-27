@@ -27,9 +27,12 @@ def fetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, state
 
     # read pmu excel 
     excelDf = pd.read_excel(targetFilePath, skiprows=9, skipfooter=3, header=None)
+    print("sem data")
+    # print(excelDf)
     if stateName == "DN1":
         excelDf = excelDf.iloc[:, [0,21]]
         excelDf.rename(columns = {0: 'Timestamp', 21:'semData'}, inplace = True)
+        print(excelDf)
     elif stateName == "DD1":
         excelDf = excelDf.iloc[:, [0,11]]
         excelDf.rename(columns = {0: 'Timestamp', 11:'semData'}, inplace = True)

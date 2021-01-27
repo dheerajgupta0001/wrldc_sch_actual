@@ -33,26 +33,22 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
         # read header from first line
         # dfCols = fLines[7].split(',')[2:-1]
         schDfRows = []
-        # read the values from line 1 to 100
-        for rowInd in range(9,15):
+        # read the values from line 9 to 105
+        for rowInd in range(9,105):
             # read the data line
             dataRowVals = fLines[rowInd].split()
             dataRowVals = [k for k in dataRowVals[0:]]
             # print("row")
             # print(dataRowVals)
             schDfRows.append(dataRowVals)
-        schDf = pd.DataFrame(data=schDfRows)
-        # print(schDf)
-    print(schDf)
-
-
-
-
-
-    excelDf = pd.read_excel(targetFilePath, skiprows=9, skipfooter=3, header=None)
+        excelDf = pd.DataFrame(data=schDfRows)
+    # print(excelDf)
+    # append previous code
+    # excelDf = pd.read_excel(targetFilePath, skiprows=9, skipfooter=3, header=None)
     if stateName == "DN1":
         excelDf = excelDf.iloc[:, [0,21]]
         excelDf.rename(columns = {0: 'Timestamp', 21:'semData'}, inplace = True)
+        print(excelDf)
     elif stateName == "DD1":
         excelDf = excelDf.iloc[:, [0,11]]
         excelDf.rename(columns = {0: 'Timestamp', 11:'semData'}, inplace = True)
@@ -66,13 +62,24 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
         excelDf = excelDf.iloc[:, [0,29]]
         excelDf.rename(columns = {0: 'Timestamp', 29:'semData'}, inplace = True)
     elif stateName == "MH2":
-        excelDf = pd.read_excel(targetFilePath, skiprows=8, skipfooter=3, header=None)
+        # excelDf = pd.read_excel(targetFilePath, skiprows=8, skipfooter=3, header=None)
+        schDfRows = []
+        # read the values from line 9 to 105
+        for rowInd in range(8,104):
+            # read the data line
+            dataRowVals = fLines[rowInd].split()
+            dataRowVals = [k for k in dataRowVals[0:]]
+            # print("row")
+            # print(dataRowVals)
+            schDfRows.append(dataRowVals)
+        excelDf = pd.DataFrame(data=schDfRows)
         excelDf = excelDf.iloc[:, [0,30]]
         excelDf.rename(columns = {0: 'Timestamp', 30:'semData'}, inplace = True)
     elif stateName == "GU2":
         excelDf = excelDf.iloc[:, [0,32]]
         excelDf.rename(columns = {0: 'Timestamp', 32:'semData'}, inplace = True)
-    # print("sem data")
+    # convert string typed column to float
+    excelDf['semData'] = excelDf['semData'].astype(float)
     semData = excelDf["semData"].tolist()
     # print(excelDf)
     return semData
