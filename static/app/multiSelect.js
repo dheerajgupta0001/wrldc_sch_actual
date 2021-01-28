@@ -1,8 +1,8 @@
 $(document).ready(function(){
     var multipleCancelButton = new Choices('#consList', {
     removeItemButton: true,
-    maxItemCount:5,
-    searchResultLimit:7,
-    renderChoiceLimit:7
+    maxItemCount:20,
+    searchResultLimit:20,
+    renderChoiceLimit:20
     });
 });

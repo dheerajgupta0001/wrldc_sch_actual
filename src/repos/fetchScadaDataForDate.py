@@ -42,6 +42,16 @@ def fetchScadaSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, sta
         column = "MSEB_DRWL_TOT"
     elif stateName == "GU2":
         column = "GEB_DRWL_TOT"
+    elif stateName == "NR1":
+        column = "WR_NR_FLOW"
+    elif stateName == "ER1":
+        column = "WR_ER_FLOW"
+    elif stateName == "SR1":
+        column = "WR_SR_FLOW"
+    elif stateName == "HZ1":
+        column = "AMNSIL_WR_TOTAL"
+    elif stateName == "BR1":
+        column = "BARC"
     excelDf = excelDf.loc[:, ["Timestamp", column]]
     # print(excelDf)
     # print(type(excelDf["Timestamp"][0]))
