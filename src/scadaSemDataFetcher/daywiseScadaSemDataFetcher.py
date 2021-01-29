@@ -3,10 +3,9 @@ import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 from typing import List
-from src.repos.fetchSemDataForDate import fetchSemSummaryForDate
-from src.repos.testFetchSemDataForDate import testFetchSemSummaryForDate
-from src.repos.fetchScadaDataForDate import fetchScadaSummaryForDate
-
+from src.fetcher.fetchSemDataForDate import fetchSemSummaryForDate
+from src.fetcher.testFetchSemDataForDate import testFetchSemSummaryForDate
+from src.fetcher.fetchScadaDataForDate import fetchScadaSummaryForDate
 
 def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, stateName: str) -> bool:
     """fetches the pmu availability data from excel files 
@@ -56,6 +55,23 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
     data['scadaData']= scadaData
     data['semData']= semData
     data['times']= dateList
+
+    # dataframe for pushing data to DB
+    dataDF = pd.DataFrame()
+    dataDF['time_stamp']= dateList
+    dataDF['SCADA_DATA']= scadaData
+    dataDF['SEM_DATA']= semData
+    dataDF['CONSTITUENTS_NAME']= stateName
+    # print(dataDF)
+    # convert nan to None
+    dataDF = dataDF.where(pd.notnull(dataDF), None)
+
+    # convert dataframe to list of dictionaries
+    scadaSemRecords = dataDF.to_dict('records')
+    # print("records format")
+    # print(scadaSemRecords)
+    
+
     # getting Difference 
     meterDataSum = data['semData'].sum()
     errorDiffList = data['scadaData'] - data['semData']
@@ -66,4 +82,4 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
     resRecords = data.to_dict(orient='list')
     # print(resRecords)
 
-    return resRecords, errorPerc
+    return resRecords, errorPerc, scadaSemRecords

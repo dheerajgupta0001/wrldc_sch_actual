@@ -18,7 +18,7 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
     fileDateStr = dt.datetime.strftime(targetDt, '%d%m%y')
     targetFilename = '{0}.{1}'.format(fileDateStr, stateName)
     targetFilePath = os.path.join(scadaSemFolderPath, targetFilename)
-    print(targetFilePath)
+    # print(targetFilePath)
 
     # check if excel file is present
     if not os.path.isfile(targetFilePath):

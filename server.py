@@ -12,6 +12,7 @@ import os
 from waitress import serve
 from src.config.appConfig import getConfig
 from src.scadaSemDataFetcher.daywiseScadaSemDataFetcher import fetchScadaSemRawData
+from src.repos.insertScadaSemToDb import ScadaSemSummaryRepo
 
 app = Flask(__name__)
 
@@ -25,14 +26,52 @@ app.secret_key = appConfig['flaskSecret']
 scadaSemFolderPath = appConfig['scadaSemFolderPath']
 appDbConnStr = appConfig['appDbConStr']
 
+# get the instance of min_wise demand storage repository
+scadaSemRepo= ScadaSemSummaryRepo(appDbConnStr)
+
 @app.route('/')
 def hello():
     return render_template('home.html.j2')
 
 
+@app.route('/createScadaSemData', methods=['GET', 'POST'])
+def createScadaSemData():
+    # in case of post request, fetch 
+    if request.method == 'POST':
+        startDate = request.form.get('startDate')
+        endDate = request.form.get('endDate')
+        # print("tsting {}".format(startDate))
+        startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
+        endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
+        constituentsName = request.form.getlist('consList')
+        # print(constituentsName)
+
+        # testing of multiple div dynamically
+        for stateName in constituentsName:
+            isRawCreationSuccess= False
+            #get the scada sem data of 1st state name for GRAPH PLOTTING
+            dfData_gInd, errorPercInd, scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
+                                                        startDate, endDate, stateName)
+            isRawCreationSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
+            if isRawCreationSuccess:
+                print("Scada Sem data insertion SUCCESSFUL for {}".format(stateName))
+            else:
+                print("Scada Sem data insertion UNSUCCESSFUL for {}".format(stateName))
+        # print(errorPerc[0])
+        startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
+        endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
+        if isRawCreationSuccess:
+            x=  {'message': 'Scada Sem Data insertion successful!!!'}
+            return render_template('createScadaSemData.html.j2', data= x, startDate= startDate, endDate= endDate)
+
+        return render_template('createScadaSemData.html.j2', startDate= startDate, endDate= endDate)
+    # in case of get request just return the html template
+    return render_template('createScadaSemData.html.j2')
+
+
 @app.route('/plotGraphData', methods=['GET', 'POST'])
 def plotGraphPmuData():
-    # in case of post request, fetch iegc viol msgs and return json response
+    # in case of post request, fetch 
     if request.method == 'POST':
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
@@ -40,15 +79,21 @@ def plotGraphPmuData():
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         constituentsName = request.form.getlist('consList')
-        # print(constituentsName)
+        print(constituentsName)
 
         # testing of multiple div dynamically
         dfData_g = []
         errorPerc = []
         for stateName in constituentsName:
+            isFetchSuccess= False
             #get the scada sem data of 1st state name for GRAPH PLOTTING
-            dfData_gInd, errorPercInd = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
+            dfData_gInd, errorPercInd, scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
                                                         startDate, endDate, stateName)
+            isFetchSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
+            if isFetchSuccess:
+                print("Scada Sem data insertion SUCCESSFUL for {}".format(stateName))
+            else:
+                print("Scada Sem data insertion UNSUCCESSFUL for {}".format(stateName))
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
         # print(errorPerc[0])
