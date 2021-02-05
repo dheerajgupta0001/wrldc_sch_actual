@@ -35,7 +35,7 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPa
         # print("sem data processing")
         # dailySemData = fetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
         dailySemData = testFetchSemSummaryForDate(semFolderPath, currDate, stateName)
-        print("sem file {}".format(semFolderPath))
+        # print("sem file {}".format(semFolderPath))
         # print(len(semData))
         semData.extend(dailySemData)
         # print("sem data processing ended")
