@@ -47,11 +47,11 @@ class ScadaSemSummaryRepo():
             # print("deletion started")
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' ")
             cursor.executemany(
-                "delete from mis_warehouse.SCADA_SEM where TIME_STAMP=:1 and CONSTITUENTS_NAME=:2", existingScadaSemData)
+                "delete from scada_warehouse.SCADA_SEM where TIME_STAMP=:1 and CONSTITUENTS_NAME=:2", existingScadaSemData)
             # print("deletion is done")
             
             # insert the raw data
-            sql_insert = "insert into mis_warehouse.SCADA_SEM({0}) values ({1})".format(
+            sql_insert = "insert into scada_warehouse.SCADA_SEM({0}) values ({1})".format(
                 ','.join(colNames), sqlPlceHldrsTxt)
             
             # cursor.execute("ALTER USER <scada_warehouse> quota unlimited on <scada_sem>;")

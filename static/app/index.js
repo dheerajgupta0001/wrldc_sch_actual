@@ -3,8 +3,8 @@ function loadPlotData() {
     for (let maesIterGlob = 0; maesIterGlob < dfData_gGlob.length; maesIterGlob++) {
         var dfData_g = dfData_gGlob[maesIterGlob]
         console.log(dfData_g)
-        var dateKeyName = 'times';
-        var times = dfData_g[dateKeyName];
+        var dateKeyName = 'TIME_STAMP';
+        var TIME_STAMP = dfData_g[dateKeyName];
         // create traces array
         traces = [];
         dataKeys = Object.keys(dfData_g);
@@ -14,7 +14,7 @@ function loadPlotData() {
                 continue;
             }
             var trace = {
-                x: times,
+                x: TIME_STAMP,
                 y: dfData_g[meas],
                 mode: 'lines',
                 name: meas
@@ -23,7 +23,7 @@ function loadPlotData() {
         }
         var layout = {
             title:{
-                text: consName[maesIterGlob],
+                text: stateList[maesIterGlob],
                 font: {
                     family: "Times New Roman",
                     size: 35,

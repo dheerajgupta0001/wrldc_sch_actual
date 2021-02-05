@@ -30,7 +30,6 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
     semData = []
     scadaData = []
     times = []
-    data = pd.DataFrame()
     while currDate <= reqEndDt:
         # fetch sem data for the date
         # print("sem data processing")
@@ -51,10 +50,6 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
     for col in times:
         dateList.append(dt.datetime.strftime(col, '%Y-%m-%d %H:%M:%S'))
     # print(dateList)
-    # print(len(semData))
-    data['scadaData']= scadaData
-    data['semData']= semData
-    data['times']= dateList
 
     # dataframe for pushing data to DB
     dataDF = pd.DataFrame()
@@ -68,18 +63,5 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, startDate: d
 
     # convert dataframe to list of dictionaries
     scadaSemRecords = dataDF.to_dict('records')
-    # print("records format")
-    # print(scadaSemRecords)
-    
 
-    # getting Difference 
-    meterDataSum = data['semData'].sum()
-    errorDiffList = data['scadaData'] - data['semData']
-    errorSum = errorDiffList.sum() 
-    errorPerc = round((errorSum/meterDataSum)*100, 2)
-    # print(errorPerc)
-    # convert dataframe to list of dictionaries
-    resRecords = data.to_dict(orient='list')
-    # print(resRecords)
-
-    return resRecords, errorPerc, scadaSemRecords
+    return scadaSemRecords

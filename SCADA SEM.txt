@@ -1,5 +1,0 @@
-scada sem
-sem: for NR: NR1
-SR: SR1
-HAZIRA:HZ1
-BARCO: BR1

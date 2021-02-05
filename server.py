@@ -1,5 +1,5 @@
 '''
-This is the web server that acts as a service that creates outages raw data
+This is the web server that acts as a service that creates scada sem data
 '''
 from plotly.offline import plot
 from plotly.graph_objs import Scatter
@@ -13,6 +13,8 @@ from waitress import serve
 from src.config.appConfig import getConfig
 from src.scadaSemDataFetcher.daywiseScadaSemDataFetcher import fetchScadaSemRawData
 from src.repos.insertScadaSemToDb import ScadaSemSummaryRepo
+from src.graphDataFetcher.graphPlotDataFetcher import PlotScadaSemData
+from src.graphDataFetcher.stateName import stateNameData
 
 app = Flask(__name__)
 
@@ -50,7 +52,7 @@ def createScadaSemData():
         for stateName in constituentsName:
             isRawCreationSuccess= False
             #get the scada sem data of 1st state name for GRAPH PLOTTING
-            dfData_gInd, errorPercInd, scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
+            scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
                                                         startDate, endDate, stateName)
             isRawCreationSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
             if isRawCreationSuccess:
@@ -69,8 +71,8 @@ def createScadaSemData():
     return render_template('createScadaSemData.html.j2')
 
 
-@app.route('/plotGraphData', methods=['GET', 'POST'])
-def plotGraphPmuData():
+@app.route('/plotGraph', methods=['GET', 'POST'])
+def plotGraph():
     # in case of post request, fetch 
     if request.method == 'POST':
         startDate = request.form.get('startDate')
@@ -84,28 +86,29 @@ def plotGraphPmuData():
         # testing of multiple div dynamically
         dfData_g = []
         errorPerc = []
+        stateList = []
         for stateName in constituentsName:
-            isFetchSuccess= False
-            #get the scada sem data of 1st state name for GRAPH PLOTTING
-            dfData_gInd, errorPercInd, scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
-                                                        startDate, endDate, stateName)
-            isFetchSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
-            if isFetchSuccess:
-                print("Scada Sem data insertion SUCCESSFUL for {}".format(stateName))
-            else:
-                print("Scada Sem data insertion UNSUCCESSFUL for {}".format(stateName))
+            #get the instance of scada sem repository for GRAPH PLOTTING
+            plotScadaSemDataRepo = PlotScadaSemData(appDbConnStr)
+
+            # fetch scada sem data from db via the repository instance of ith state
+            dfData_gInd, errorPercInd = plotScadaSemDataRepo.plotScadaSemData(startDate, endDate, stateName)
+            state= stateNameData(stateName)
+            stateList.append(state)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
         # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
         div_info = zip(constituentsName, errorPerc)
+        print(stateList)
         # print(errorPerc)
 
-        return render_template('test.html.j2', data= dfData_g, div_info= div_info, consName= constituentsName,
-                                    stateName= stateName, startDate= startDate, endDate= endDate)
+        return render_template('plot.html.j2', data= dfData_g, div_info= div_info,
+                                consName= constituentsName, stateList= stateList,
+                                stateName= stateName, startDate= startDate, endDate= endDate)
     # in case of get request just return the html template
-    return render_template('test.html.j2')
+    return render_template('plot.html.j2')
 
 
 if __name__ == '__main__':
