@@ -28,6 +28,8 @@ app.secret_key = appConfig['flaskSecret']
 scadaSemFolderPath = appConfig['scadaSemFolderPath']
 scadaFolderPath = appConfig['scadaFolderPath']
 semFolderPath = appConfig['semFolderPath']
+print(semFolderPath)
+print(scadaFolderPath)
 appDbConnStr = appConfig['appDbConStr']
 
 # get the instance of min_wise demand storage repository
@@ -114,7 +116,6 @@ def plotGraph():
 
 
 if __name__ == '__main__':
-    app.run(port=int(appConfig['flaskPort']), debug=True)
     serverMode: str = appConfig['mode']
     if serverMode.lower() == 'd':
         app.run(host="0.0.0.0", port=int(appConfig['flaskPort']), debug=True)

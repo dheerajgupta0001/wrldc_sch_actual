@@ -7,7 +7,7 @@ from src.fetcher.fetchSemDataForDate import fetchSemSummaryForDate
 from src.fetcher.testFetchSemDataForDate import testFetchSemSummaryForDate
 from src.fetcher.fetchScadaDataForDate import fetchScadaSummaryForDate
 
-def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, semFolderPath: str, scadaFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, stateName: str) -> bool:
+def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str,scadaFolderPath: str, semFolderPath: str, startDate: dt.datetime, endDate: dt.datetime, stateName: str) -> bool:
     """fetches the pmu availability data from excel files 
     and pushes it to the raw data table
     Args:
@@ -35,6 +35,7 @@ def fetchScadaSemRawData(appDbConStr: str, scadaSemFolderPath: str, semFolderPat
         # print("sem data processing")
         # dailySemData = fetchSemSummaryForDate(scadaSemFolderPath, currDate, stateName)
         dailySemData = testFetchSemSummaryForDate(semFolderPath, currDate, stateName)
+        print("sem file {}".format(semFolderPath))
         # print(len(semData))
         semData.extend(dailySemData)
         # print("sem data processing ended")
