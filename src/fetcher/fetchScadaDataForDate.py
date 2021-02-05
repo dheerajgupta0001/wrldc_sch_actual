@@ -22,7 +22,7 @@ def fetchScadaSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, sta
 
     # check if csv file is present
     if not os.path.isfile(targetFilePath):
-        print("Excel file for date {0} is not present".format(targetDt))
+        print("Scada Excel file for date {0} is not present".format(targetDt))
         return []
 
     # read pmu excel 

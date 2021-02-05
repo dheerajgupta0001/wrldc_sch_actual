@@ -22,8 +22,8 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
 
     # check if excel file is present
     if not os.path.isfile(targetFilePath):
-        print("Excel file for date {0} is not present".format(targetDt))
-        return []
+        print("Sem file for date {0} is not present for state {1}".format(targetDt, stateName))
+        return [] 
 
     # read notepad type file format r"C:\Users\DEVANSH SHARMA\Desktop\example.txt",'r'
     with open(targetFilePath, mode='r') as f:

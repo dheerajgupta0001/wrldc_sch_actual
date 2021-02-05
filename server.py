@@ -26,6 +26,8 @@ app.secret_key = appConfig['flaskSecret']
 
 # create pmu availability raw data between start and end dates
 scadaSemFolderPath = appConfig['scadaSemFolderPath']
+scadaFolderPath = appConfig['scadaFolderPath']
+semFolderPath = appConfig['semFolderPath']
 appDbConnStr = appConfig['appDbConStr']
 
 # get the instance of min_wise demand storage repository
@@ -52,8 +54,8 @@ def createScadaSemData():
         for stateName in constituentsName:
             isRawCreationSuccess= False
             #get the scada sem data of 1st state name for GRAPH PLOTTING
-            scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath,
-                                                        startDate, endDate, stateName)
+            scadaSemRecord = fetchScadaSemRawData(appDbConnStr, scadaSemFolderPath, scadaFolderPath,
+                                                        semFolderPath, startDate, endDate, stateName)
             isRawCreationSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
             if isRawCreationSuccess:
                 print("Scada Sem data insertion SUCCESSFUL for {}".format(stateName))
@@ -77,11 +79,11 @@ def plotGraph():
     if request.method == 'POST':
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
-        print("tsting {}".format(startDate))
+        # print("tsting {}".format(startDate))
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
         constituentsName = request.form.getlist('consList')
-        print(constituentsName)
+        # print(constituentsName)
 
         # testing of multiple div dynamically
         dfData_g = []
@@ -101,7 +103,7 @@ def plotGraph():
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
         div_info = zip(constituentsName, errorPerc)
-        print(stateList)
+        # print(stateList)
         # print(errorPerc)
 
         return render_template('plot.html.j2', data= dfData_g, div_info= div_info,
