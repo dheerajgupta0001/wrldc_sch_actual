@@ -56,6 +56,11 @@
 </form>
 
 {% block scripts %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'app/multiSelect.js') }}"></script>
+<script language="JavaScript" type="text/javascript" src="static/app/index.js"></script>
+<script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script>
+{# <script language="JavaScript" type="text/javascript" src="static/node_modules/chosen-js/chosen.jquery.min.js"></script> #}
+
 {% if data %}
     {# dynamic div testing #}
     {% set l = 0 %}
@@ -74,14 +79,7 @@
             loadPlotData();
         }
     </script>
-    <script language="JavaScript" type="text/javascript" src="static/app/index.js"></script>
-    <script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script>
-    {# <link rel="stylesheet" href="static/node_modules/chosen-js/chosen.min.css"> #}
-    <script language="JavaScript" type="text/javascript" src="static/node_modules/chosen-js/chosen.jquery.min.js"></script>
-    {# <script language="JavaScript" type="text/javascript" src="static/app/plotly.min.js"></script>
-    <link rel="stylesheet" href="jquery.dropdown.css">
-    <script language="JavaScript" type="text/javascript" src="jquery.dropdown.js"></script> #}
-{% endif %}
+    {% endif %}
     <style>
         thead input {
             padding: 2px;

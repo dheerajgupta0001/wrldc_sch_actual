@@ -1,0 +1,40 @@
+{% extends "layoutBase.html.j2" %}
+{% block title %}Create Scada Sem RE Data{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h3>Create Scada Sem RE Data</h3>
+{% from "_formhelpers.html.j2" import render_field %}
+<form method="post">
+  {# <div class="form-row"> #}
+    <div class="form-group col-md-6">
+      {{ render_field(form.startDate, class="datetimepicker") }}
+    </div>
+    <div class="form-group col-md-6">
+      {{ render_field(form.endDate, class="datetimepicker") }}
+    </div>
+  {# </div> #}
+  {# <div class="form-row">
+    <div class="form-group col-md-4">
+      {{ render_field(form.reList, class="chosen-select") }}
+    </div>
+  </div> #}
+  <p><input type="submit" value="Insert RE Data" class="btn btn-success"/>
+</form>
+
+<br/>
+{% if data %}
+    <h3><p>Scada Sem RE Data insertion successful!!!</p></h3>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+  <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 're/multiSelect.js') }}"></script>
+  {# <script>
+        console.log("dfjsf")
+  </script> #}
+{% endblock%}

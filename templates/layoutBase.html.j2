@@ -4,7 +4,7 @@
     {% block head %}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock %} - SCADA SEM DASHBOARD</title>
+    <title>{% block title %}{% endblock %} - स्काडा सेम डैशबोर्ड</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/bootstrap/dist/css/bootstrap.min.css') }}" />
 
     <!-- Custom fonts for sb admin 2-->
@@ -30,7 +30,7 @@
                     <!--<i class="fas fa-laugh-wink"></i>-->
                     <img src='https://www.psuconnect.in/sdsdsd/download10.jpg' width="50" height="50"/>
                 </div>
-                <div class="sidebar-brand-text mx-3">SCADA SEM Dashboard</div>
+                <div class="sidebar-brand-text mx-3">स्काडा सेम डैशबोर्ड</div>
             </a>
 
             <!-- Divider -->
@@ -55,7 +55,7 @@
                     </button>
 
                     <!-- Topbar Navbar -->
-                    <strong><span class="mr-2 d-none d-md-inline text-current">Western Regional Load Despatch Centre, POSOCO</span>
+                    <strong><span class="mr-2 d-none d-md-inline text-current">पश्चिमी क्षेत्रीय भार प्रेषण केंद्र, पोसोको</span>
                     {% include '_loginPartial.html.j2' %}
                 </nav>
                 <!-- End of Topbar -->
@@ -71,7 +71,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright © Dheeraj Gupta</span>
+                        <span>कॉपीराइट © पश्चिमी क्षेत्रीय भार प्रेषण केंद्र, पोसोको</span>
                     </div>
                 </div>
             </footer>
@@ -91,16 +91,17 @@
     <script type="text/javascript" src="{{ url_for('static', filename='node_modules/pdfmake/build/pdfmake.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='node_modules/pdfmake/build/vfs_fonts.js') }}"></script>
     <script src="https://cdn.datatables.net/fixedheader/3.1.2/js/dataTables.fixedHeader.min.js" type="text/javascript"></script>
-    <script language="JavaScript" type="text/javascript" src="static/app/multiSelect.js"></script>
-    <script language="JavaScript" type="text/javascript" src="static/app/plotly-latest.min.js"></script>
-    <script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script>
     <script>
         (function () {
             document.getElementById("sidebarToggle").click();
         })();
     </script>
     <link href="{{ url_for('static', filename='site.css') }}" rel="stylesheet" type="text/css"/>
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+    <script language="JavaScript" type="text/javascript" src="static/app/multiSelect.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/app/plotly-latest.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script>
+    {% endblock %}
     <style>
         .table{
             color: #111;

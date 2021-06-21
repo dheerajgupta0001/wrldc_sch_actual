@@ -15,6 +15,7 @@ from src.scadaSemDataFetcher.daywiseScadaSemDataFetcher import fetchScadaSemRawD
 from src.repos.insertScadaSemToDb import ScadaSemSummaryRepo
 from src.graphDataFetcher.graphPlotDataFetcher import PlotScadaSemData
 from src.graphDataFetcher.stateName import stateNameData
+from src.routeControllers.scadaSemReData import scadaSemRePage
 
 app = Flask(__name__)
 
@@ -28,8 +29,8 @@ app.secret_key = appConfig['flaskSecret']
 scadaSemFolderPath = appConfig['scadaSemFolderPath']
 scadaFolderPath = appConfig['scadaFolderPath']
 semFolderPath = appConfig['semFolderPath']
-print(semFolderPath)
-print(scadaFolderPath)
+# print(semFolderPath)
+# print(scadaFolderPath)
 appDbConnStr = appConfig['appDbConStr']
 
 # get the instance of min_wise demand storage repository
@@ -110,10 +111,11 @@ def plotGraph():
 
         return render_template('plot.html.j2', data= dfData_g, div_info= div_info,
                                 consName= constituentsName, stateList= stateList,
-                                stateName= stateName, startDate= startDate, endDate= endDate)
+                                startDate= startDate, endDate= endDate)
     # in case of get request just return the html template
     return render_template('plot.html.j2')
 
+app.register_blueprint(scadaSemRePage, url_prefix='/scadaSemRe')
 
 if __name__ == '__main__':
     serverMode: str = appConfig['mode']

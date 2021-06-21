@@ -1,0 +1,104 @@
+{% extends "layoutBase.html.j2" %}
+{# {% block title %}SCADA vs SEM RE PLOT{% endblock %} #}
+{% block title %}स्काडा बनाम सेम आरई प्लॉट{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<style type='text/css'>
+    h1 {
+    color : black;
+    }
+    h3 {
+    color : black;
+    border: 0.4rem solid transparent;
+    /* width: 8em;
+    height: 10em; */
+    max-height: 30em;
+    overflow: auto;
+    font-size: 1.5rem;
+    padding: 1rem;
+    }
+</style>
+<h1><strong>स्काडा बनाम सेम आरई ग्राफ प्रदर्शित करें</h1>
+<form class="form" method="POST">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="startDate">आरंभ तिथि</label>
+        <input type="date" class="form-control bg-light border-1 mr-2" required="" name = "startDate" id="startDate" {% if startDate %} value="{{startDate}}" {% endif %}>
+        </div>
+        <div class="form-group col-md-6">
+        <label for="endDate">समाप्ति तिथि</label>
+        <input type="date" name = "endDate" class="form-control" required id="endDate" {% if endDate %} value="{{endDate}}" {% endif %}>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {# <label for="reList">Choose RE(s) Name:</label> #}
+            <label for="reList">आरई (ओं) का नाम चुनें:</label>
+            <select multiple class="chosen-select" name="reList" required="" id="reList" style="color:black" placeholder="Select location here..">
+                <option value="OS-91">ओस्ट्रो पवन</option>
+                <option value="AM-91">एकमे सोलर</option>
+                <option value="MA-91">महेंद्र सोलर</option>
+                <option value="AR-91">अरिन्सन सोलर</option>
+                <option value="RE-91">भुवद पवन</option>
+                <option value="GI-91">वडवा पवन</option>
+                <option value="GI-94">नारनपार पवन</option>
+                <option value="IX-91">दयापार पवन</option>
+                <option value="AG-91">रताड़िया पवन</option>
+                <option value="AF-91">अल्फानारी पवन</option>
+                <option value="GH-91">गढ़सीसा पवन</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" class = "btn btn-success" value="submit">
+</form>
+
+{% block scripts %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 're/multiSelect.js') }}"></script>
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 're/index.js') }}"></script>
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
+{% if data %}
+    {# dynamic div testing #}
+    {% set l = 0 %}
+    {% for reList,err in div_info %}
+        <div class="container mb-5">
+            <br>
+            <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
+        </div>
+        <div id={{reList}}></div>
+    {% endfor %}
+    {% set dfData = data %}
+    <script>
+        var reName = {{ reName|safe }};
+        var reDisplayList = {{ reDisplayList|safe }};
+        var dfData_gGlob = {{ dfData|safe }};
+        window.onload = function() {
+            loadPlotData();
+        }
+    </script>
+    {# <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 're/index.js') }}"></script>
+    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
+    {# <script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script> #}
+    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/chosen-js/chosen.jquery.min.js') }}"></script> #}
+{% endif %}
+    <style>
+        thead input {
+            padding: 2px;
+            box-sizing: border-box;
+            font-size: small;
+            width: 100%
+        }
+        .rightSpan{
+             float:right;
+             font-size: 22px;
+         }
+    </style>
+
+{% endblock %}
+
+
+{% endblock %}
+

@@ -4,7 +4,7 @@ import datetime as dt
 from typing import List, Tuple
 from src.typeDefs.scadaSemSummary import IScadaSemSummary
 
-class ScadaSemSummaryRepo():
+class ScadaSemReSummaryRepo():
     """Repository class for scada sem data
     """
     """This class pushes Scada-Sem data To "scada_warehouse.SCADA_SEM" table
@@ -18,22 +18,22 @@ class ScadaSemSummaryRepo():
 
         self.connString = con_string
 
-    def pushScadaSemRecord(self, scadaSemRecords: List[IScadaSemSummary]) -> bool:
+    def pushScadaSemReRecord(self, scadaSemReRecords: List[IScadaSemSummary]) -> bool:
         """inserts Scada-Sem data To "scada_warehouse.SCADA_SEM" table
         Args:
-            scadaSemRecords (List[IScadaSemSummary]): scada Sem Records to be inserted
+            scadaSemReRecords (List[IScadaSemSummary]): scada Sem Re Records to be inserted
         Returns:
             bool: returns true if process is ok
         """
         # get connection with raw data table
         connection= cx_Oracle.connect(self.connString)
         isInsertSuccess = True
-        if len(scadaSemRecords) == 0:
+        if len(scadaSemReRecords) == 0:
             return isInsertSuccess
         try:
             # keyNames names of the raw data
-            keyNames = ['time_stamp', 'SCADA_DATA', 'SEM_DATA', 'CONSTITUENTS_NAME']
-            colNames = ['TIME_STAMP', 'SCADA_DATA', 'SEM_DATA', 'CONSTITUENTS_NAME']
+            keyNames = ['time_stamp', 'SCADA_DATA_RE', 'SEM_DATA_RE', 'RE_NAME']
+            colNames = ['TIME_STAMP', 'SCADA_DATA_RE', 'SEM_DATA_RE', 'RE_NAME']
             # get cursor for raw data table
             cursor=connection.cursor()
 
@@ -42,22 +42,22 @@ class ScadaSemSummaryRepo():
                                         for x in range(len(keyNames))])
 
             # delete the rows which are already present
-            existingScadaSemData = [(x['time_stamp'], x['CONSTITUENTS_NAME'] )
-                                  for x in scadaSemRecords]
+            existingScadaSemData = [(x['time_stamp'], x['RE_NAME'] )
+                                  for x in scadaSemReRecords]
             # print("deletion started")
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' ")
             cursor.executemany(
-                "delete from scada_warehouse.SCADA_SEM where TIME_STAMP=:1 and CONSTITUENTS_NAME=:2", existingScadaSemData)
+                "delete from scada_warehouse.SCADA_SEM_RE where TIME_STAMP=:1 and RE_NAME=:2", existingScadaSemData)
             # print("deletion is done")
             
             # insert the raw data
-            sql_insert = "insert into scada_warehouse.SCADA_SEM({0}) values ({1})".format(
+            sql_insert = "insert into scada_warehouse.SCADA_SEM_RE({0}) values ({1})".format(
                 ','.join(colNames), sqlPlceHldrsTxt)
             
-            # cursor.execute("ALTER USER <scada_warehouse> quota unlimited on <scada_sem>;")
+            # cursor.execute("ALTER USER <scada_warehouse> quota unlimited on <SCADA_SEM_RE>;")
             # cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' ")
             cursor.executemany(sql_insert, [tuple(
-                [r[col] for col in keyNames]) for r in scadaSemRecords])
+                [r[col] for col in keyNames]) for r in scadaSemReRecords])
             # commit the changes
             connection.commit()
         except Exception as e:

@@ -23,7 +23,7 @@ function loadPlotData() {
         }
         var layout = {
             title:{
-                text: stateList[maesIterGlob],
+                text: reDisplayList[maesIterGlob],
                 font: {
                     family: "Times New Roman",
                     size: 35,
@@ -34,6 +34,6 @@ function loadPlotData() {
             legend: { "orientation": "v" },
             paper_bgcolor: "#e5e5e5"
         };
-        Plotly.newPlot(consName[maesIterGlob], traces, layout);
+        Plotly.newPlot(reName[maesIterGlob], traces, layout);
     }
 }
