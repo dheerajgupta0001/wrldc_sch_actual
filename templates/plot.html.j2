@@ -1,5 +1,5 @@
 {% extends "layoutBase.html.j2" %}
-{% block title %}SCADA vs SEM PLOT{% endblock %}
+{% block title %}स्काडा बनाम सेम संघटक ग्राफ{% endblock %}
 
 {% block head %}
 {{ super() }}
@@ -21,33 +21,33 @@
     padding: 1rem;
     }
 </style>
-<h1><strong>Display Scada vs Sem Graph</h1>
+<h1><strong>स्काडा बनाम सेम संघटक ग्राफ प्रदर्शित करें</h1>
 <form class="form" method="POST">
     <div class="form-row">
         <div class="form-group col-md-6">
-        <label for="startDate">Start Date</label>
+        <label for="startDate">आरंभ तिथि</label>
         <input type="date" class="form-control bg-light border-1 mr-2" required="" name = "startDate" id="startDate" {% if startDate %} value="{{startDate}}" {% endif %}>
         </div>
         <div class="form-group col-md-6">
-        <label for="endDate">End Date</label>
+        <label for="endDate">समाप्ति तिथि</label>
         <input type="date" name = "endDate" class="form-control" required id="endDate" {% if endDate %} value="{{endDate}}" {% endif %}>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="consList">Choose Constituent(s) Name:</label>
+            <label for="consList">घटक (ओं) का नाम चुनें:</label>
             <select multiple class="chosen-select" name="consList" required="" id="consList" style="color:black" placeholder="Select location here..">
-                <option value="CS1">CHHATTISGARH</option>
-                <option value="DN1">Dadra & Nagar Haveli</option>
-                <option value="DD1">DAMAN & DIU</option>
-                <option value="GO1">GOA</option>
-                <option value="MP2">MADHYA PRADESH</option>
-                <option value="GU2">GUJRAT</option>
-                <option value="MH2">MAHARASHTRA</option>
-                <option value="NR1">NORTHERN REGION</option>
-                <option value="SR1">SOUTHERN REGION</option>
-                <option value="ER1">EASTERN REGION</option>
-                <option value="HZ1">HAZIRA</option>
+                <option value="CS1">छत्तीसगढ</option>
+                <option value="DN1">दादरा नगर हवेली</option>
+                <option value="DD1">दमन दीव</option>
+                <option value="GO1">गोवा</option>
+                <option value="MP2">मध्य प्रदेश</option>
+                <option value="GU2">गुजरात</option>
+                <option value="MH2">महाराष्ट्र</option>
+                <option value="NR1">उत्तरी क्षेत्र</option>
+                <option value="SR1">दक्षिणी क्षेत्र</option>
+                <option value="ER1">पूर्वी क्षेत्र</option>
+                <option value="HZ1">हजीरा</option>
                 <option value="BR1">BARC</option>
             </select>
         </div>
@@ -66,7 +66,8 @@
     {% set l = 0 %}
     {% for consList,err in div_info %}
         <div class="container mb-5">
-            <span id= "dnhBlockNoSpan"class="text-dark rightSpan">Error Percentage:{{err}}</span>
+            <br>
+            <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
         </div>
         <div id={{consList}}></div>
     {% endfor %}

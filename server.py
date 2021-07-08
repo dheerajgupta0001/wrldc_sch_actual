@@ -16,6 +16,7 @@ from src.repos.insertScadaSemToDb import ScadaSemSummaryRepo
 from src.graphDataFetcher.graphPlotDataFetcher import PlotScadaSemData
 from src.graphDataFetcher.stateName import stateNameData
 from src.routeControllers.scadaSemReData import scadaSemRePage
+from src.routeControllers.scadaSemIsgsData import scadaSemIsgsPage
 
 app = Flask(__name__)
 
@@ -61,9 +62,9 @@ def createScadaSemData():
                                                         semFolderPath, startDate, endDate, stateName)
             isRawCreationSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
             if isRawCreationSuccess:
-                print("Scada Sem data insertion SUCCESSFUL for {}".format(stateName))
+                print("स्काडा सेम संघटक डेटा प्रविष्टि {} के लिए सफल".format(stateName))
             else:
-                print("Scada Sem data insertion UNSUCCESSFUL for {}".format(stateName))
+                print("स्काडा सेम संघटक डेटा प्रविष्टि {} के लिए असफल".format(stateName))
         # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
@@ -116,6 +117,7 @@ def plotGraph():
     return render_template('plot.html.j2')
 
 app.register_blueprint(scadaSemRePage, url_prefix='/scadaSemRe')
+app.register_blueprint(scadaSemIsgsPage, url_prefix='/scadaSemIsgs')
 
 if __name__ == '__main__':
     serverMode: str = appConfig['mode']

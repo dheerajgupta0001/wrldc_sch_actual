@@ -10,102 +10,101 @@ from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
 import datetime as dt
 from src.config.appConfig import getConfig
-from src.scadaSemDataFetcher.daywiseScadaSemReDataFetcher import fetchScadaSemReRawData
-from src.repos.insertScadaSemReToDb import ScadaSemReSummaryRepo
-from src.graphDataFetcher.reDataFetcher.reName import reDisplayNameData
-from src.graphDataFetcher.reDataFetcher.graphPlotDataFetcher import PlotScadaSemReData
+from src.scadaSemDataFetcher.daywiseScadaSemIsgsDataFetcher import fetchScadaSemIsgsRawData
+from src.repos.insertScadaSemIsgsToDb import ScadaSemIsgsSummaryRepo
+from src.graphDataFetcher.isgsDataFetcher.isgsName import isgsDisplayNameData
+from src.graphDataFetcher.isgsDataFetcher.graphPlotDataFetcher import PlotScadaSemIsgsData
 
 # get application config
 appConfig = getConfig()
-scadaReFolderPath = appConfig['scadaReFolderPath']
-semReFolderPath = appConfig['semReFolderPath']
+scadaIsgsFolderPath = appConfig['scadaIsgsFolderPath']
+semIsgsFolderPath = appConfig['semIsgsFolderPath']
 appDbConnStr = appConfig['appDbConStr']
 
-scadaSemRePage = Blueprint('scadaSemRe', __name__,
+scadaSemIsgsPage = Blueprint('scadaSemIsgs', __name__,
                             template_folder='templates')
 # get the instance of min_wise demand storage repository
-scadaSemReRepo= ScadaSemReSummaryRepo(appDbConnStr)
+scadaSemIsgsRepo= ScadaSemIsgsSummaryRepo(appDbConnStr)
 
-class CreateScadSemReForm(Form):
+class CreateScadSemIsgsForm(Form):
     # my_choices = [('1', _('VEHICLES')), ('2', _('Cars')), ('3', _('Motorcycles'))]
     my_choices = [('Vh', 'Vehicles'), ('Cr', 'Cars'), ('Mr', 'Motorcycles')]
     startDate = DateField("Start Date", default=date.today(), format='%Y-%m-%d', validators=[DataRequired(message="You need to enter the start date")],)
     endDate = DateField("End Date", validators=[DataRequired(message="You need to enter the end date.")], format='%Y-%m-%d')
-    reList = SelectMultipleField("Select RE(s)", choices = my_choices, id = "reList")
+    isgsList = SelectMultipleField("Select ISGS(s)", choices = my_choices, id = "isgsList")
 
-@scadaSemRePage.route('/create', methods=['GET', 'POST'])
+@scadaSemIsgsPage.route('/create', methods=['GET', 'POST'])
 # @role_required('code_book_editor')
 def create():
-    form = CreateScadSemReForm(request.form)
+    form = CreateScadSemIsgsForm(request.form)
     if request.method == 'POST' and form.validate():
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
         # print("tsting {}".format(startDate))
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
-        # print(startDate)
-        # reName = request.form.getlist('reList')
-        reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91"]
-        # print(reList)
+        # isgsName = request.form.getlist('isgsList')
+        isgsList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91", "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91"]
+        # print(isgsList)
 
         # testing of multiple div dynamically
-        for  reName in reList:
+        for  isgsName in isgsList:
             isRawCreationSuccess= False
             # get the scada sem data of 1st re name for GRAPH PLOTTING
-            scadaSemReRecord = fetchScadaSemReRawData(scadaReFolderPath, semReFolderPath,
-                                                        startDate, endDate,  reName)
-            isRawCreationSuccess = scadaSemReRepo.pushScadaSemReRecord(scadaSemReRecord)
+            scadaSemIsgsRecord = fetchScadaSemIsgsRawData(scadaIsgsFolderPath, semIsgsFolderPath,
+                                                        startDate, endDate,  isgsName)
+            isRawCreationSuccess = scadaSemIsgsRepo.pushScadaSemIsgsRecord(scadaSemIsgsRecord)
             if isRawCreationSuccess:
-                print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए सफल".format( reName))
+                print("स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए सफल".format( isgsName))
             else:
-                print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए असफल".format( reName))
+                print("स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए असफल".format( isgsName))
         # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
         if isRawCreationSuccess:
-            x=  {'message': 'Scada Sem RE Data insertion successful!!!'}
-            return render_template('scadaSemRe/create.html.j2', data= x, startDate= startDate, endDate= endDate, form=form)
+            x=  {'message': 'Scada Sem Isgs Data insertion successful!!!'}
+            return render_template('scadaSemIsgs/create.html.j2', data= x, startDate= startDate, endDate= endDate, form=form)
 
-        return render_template('scadaSemRe/create.html.j2', startDate= startDate, endDate= endDate, form=form)
+        return render_template('scadaSemIsgs/create.html.j2', startDate= startDate, endDate= endDate, form=form)
     # in case of get request just return the html template
-    return render_template('scadaSemRe/create.html.j2', form=form)
+    return render_template('scadaSemIsgs/create.html.j2', form=form)
 
-@scadaSemRePage.route('/plot', methods=['GET', 'POST'])
+@scadaSemIsgsPage.route('/plot', methods=['GET', 'POST'])
 # @role_required('code_book_editor')
 def plot():
     # in case of post request, fetch 
     if request.method == 'POST':
         startDate = request.form.get('startDate')
         endDate = request.form.get('endDate')
-        # print("tsting {}".format(startDate))
+        # print("testing {}".format(startDate))
         startDate = dt.datetime.strptime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strptime(endDate, '%Y-%m-%d')
-        reName = request.form.getlist('reList')
-        # print(reName)
+        isgsName = request.form.getlist('isgsList')
+        # print(isgsName)
 
         # testing of multiple div dynamically
         dfData_g = []
         errorPerc = []
-        reDisplayList = []
-        for currReName in reName:
-            #get the instance of scada sem repository for GRAPH PLOTTING
-            plotScadaSemReDataRepo = PlotScadaSemReData(appDbConnStr)
+        isgsDisplayList = []
+        for currIsgsName in isgsName:
+            #get the instance of scada sem isgs repository for GRAPH PLOTTING
+            plotScadaSemIsgsDataRepo = PlotScadaSemIsgsData(appDbConnStr)
 
             # fetch scada sem data from db via the repository instance of ith state
-            dfData_gInd, errorPercInd = plotScadaSemReDataRepo.plotScadaSemReData(startDate, endDate, currReName)
-            re= reDisplayNameData(currReName)
-            reDisplayList.append(re)
+            dfData_gInd, errorPercInd = plotScadaSemIsgsDataRepo.plotScadaSemIsgsData(startDate, endDate, currIsgsName)
+            isgs= isgsDisplayNameData(currIsgsName)
+            isgsDisplayList.append(isgs)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
         # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
-        div_info = zip(reName, errorPerc)
+        div_info = zip(isgsName, errorPerc)
         # print(reDisplayList)
         print(errorPerc)
 
-        return render_template('scadaSemRe/plot.html.j2', data= dfData_g, div_info= div_info,
-                                reName= reName, reDisplayList= reDisplayList,
+        return render_template('scadaSemIsgs/plot.html.j2', data= dfData_g, div_info= div_info,
+                                isgsName= isgsName, isgsDisplayList= isgsDisplayList,
                                 startDate= startDate, endDate= endDate)
     # in case of get request just return the html template
-    return render_template('scadaSemRe/plot.html.j2')
+    return render_template('scadaSemIsgs/plot.html.j2')

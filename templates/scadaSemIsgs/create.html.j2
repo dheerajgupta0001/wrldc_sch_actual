@@ -1,12 +1,12 @@
 {% extends "layoutBase.html.j2" %}
-{% block title %}स्काडा सेम आरई डेटा बनाएँ{% endblock %}
+{% block title %}स्काडा सेम आईएसजीएस डेटा बनाएँ{% endblock %}
 
 {% block head %}
 {{ super() }}
 {% endblock %}
 
 {% block content %}
-<h3>स्काडा सेम आरई डेटा स्टोर में डेटा बनाएं</h3>
+<h3>स्काडा सेम आईएसजीएस डेटा स्टोर में डेटा बनाएं</h3>
 {% from "_formhelpers.html.j2" import render_field %}
 <form method="post">
   {# <div class="form-row"> #}
@@ -22,12 +22,12 @@
       {{ render_field(form.reList, class="chosen-select") }}
     </div>
   </div> #}
-  <p><input type="submit" value="Insert RE Data" class="btn btn-success"/>
+  <p><input type="submit" value="Insert ISGS Data" class="btn btn-success"/>
 </form>
 
 <br/>
 {% if data %}
-    <h3><p>स्काडा सेम आरई डेटा प्रविष्टि सफल!!!</p></h3>
+    <h3><p>स्काडा सेम आईएसजीएस डेटा प्रविष्टि सफल!!!</p></h3>
 {% endif %}
 
 {% endblock %}

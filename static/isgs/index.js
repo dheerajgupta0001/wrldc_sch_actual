@@ -23,7 +23,7 @@ function loadPlotData() {
         }
         var layout = {
             title:{
-                text: reDisplayList[maesIterGlob],
+                text: isgsDisplayList[maesIterGlob],
                 font: {
                     family: "Times New Roman",
                     size: 35,
@@ -34,14 +34,6 @@ function loadPlotData() {
             legend: { "orientation": "v" },
             paper_bgcolor: "#e5e5e5"
         };
-        Plotly.newPlot(reName[maesIterGlob], traces, layout);
-        // static image in jpg format
-
-        // loadPlotData.then(function(gd) {
-        //     Plotly.toImage(gd, { height: 300, width: 300 }).then(function(url) {
-        //     img_jpg.attr("src", url);
-        //     return Plotly.toImage(gd, { format: "jpeg", height: 400, width: 400 });
-        //     });
-        // });
+        Plotly.newPlot(isgsName[maesIterGlob], traces, layout);
     }
 }
