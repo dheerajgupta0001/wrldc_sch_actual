@@ -33,7 +33,7 @@ class PlotScadaSemIsgsData():
             cursor = connection.cursor()
             endDate= endDate+dt.timedelta(hours=23, minutes=59, seconds=00)
             sql_fetch = f""" 
-                        select TIME_STAMP, scada_data_re, sem_data_re
+                        select TIME_STAMP, scada_data_isgs, sem_data_isgs
                         from scada_warehouse.scada_sem_isgs
                         where
                         TIME_STAMP between to_date(:start_date) and to_date(:end_date)

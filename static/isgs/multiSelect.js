@@ -1,9 +1,9 @@
 $(document).ready(function(){
     var multipleCancelButton = new Choices('#isgsList', {
     removeItemButton: true,
-    maxItemCount:20,
-    searchResultLimit:20,
-    renderChoiceLimit:20
+    maxItemCount:25,
+    searchResultLimit:25,
+    renderChoiceLimit:50
     });
 });
 // console.log("hello");

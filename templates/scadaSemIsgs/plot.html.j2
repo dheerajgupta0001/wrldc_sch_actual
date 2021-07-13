@@ -36,20 +36,53 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
-            {# <label for="reList">Choose RE(s) Name:</label> #}
-            <label for="reList">आईएसजीएस (ओं) का नाम चुनें:</label>
-            <select multiple class="chosen-select" name="reList" required="" id="isgsList" style="color:black" placeholder="Select location here..">
-                <option value="OS-91">ओस्ट्रो पवन</option>
-                <option value="AM-91">एकमे सोलर</option>
-                <option value="MA-91">महेंद्र सोलर</option>
-                <option value="AR-91">अरिन्सन सोलर</option>
-                <option value="RE-91">भुवद पवन</option>
-                <option value="GI-91">वडवा पवन</option>
-                <option value="GI-94">नारनपार पवन</option>
-                <option value="IX-91">दयापार पवन</option>
-                <option value="AG-91">रताड़िया पवन</option>
-                <option value="AF-91">अल्फानारी पवन</option>
-                <option value="GH-91">गढ़सीसा पवन</option>
+            {# <label for="isgsList">Choose RE(s) Name:</label> #}
+            <label for="isgsList">आईएसजीएस (ओं) का नाम चुनें:</label>
+            <select multiple class="chosen-select" name="isgsList" required="" id="isgsList" style="color:black" placeholder="Select location here..">
+                <option value="AC-91">ACBIL_EXPP</option>
+                <option value="BL-91">BALCO_EXPP</option>
+                <option value="CG-91">CGPL_EXPP</option>
+                <option value="DB-91">DBPWR_EXPP</option>
+                <option value="DC-91">JDCPP_JINDL</option>
+                <option value="DG-91">DGEN_EXPP</option>
+                <option value="DW-91">DHRW_EXPP</option>
+                <option value="EM-91">EMCO_EXPP</option>
+                <option value="GA-91">JHNR_EXP</option>
+                <option value="GM-91">GMR_RAI_EXPP</option>
+                <option value="JD-96">JINDAL_EXPP</option>
+                <option value="JD-97">JPLII_EXPP</option>
+                <option value="JH-91">JHABUA_EXPP</option>
+                <option value="JY-91">JPNIG_EXPP</option>
+                <option value="KA-91">KAPS_EXPP</option>
+                <option value="KB-91">KWPCL_EXPP</option>
+                <option value="KO-97">KSTPS_I_GROSS</option>
+                <option value="KO-98">KSTP_III_EXPP</option>
+                <option value="KS-91">KSK_EXPP</option>
+                <option value="KW-91">KAWAS_EXP</option>
+                <option value="LK-91">LANCO_EXPP</option>
+                <option value="MB-91">MBPWR_EXPP</option>
+                <option value="MD-96">MDA1_EXPP</option>
+                <option value="MD-97">MDA2_EXPP</option>
+                <option value="MN-91">ESRMN_EXPP</option>
+                <option value="NS-91">NSPCL_EXPP</option>
+                <option value="RG-91">RGPPL_EXPP</option>
+                <option value="RK-91">RKM_EXPP</option>
+                <option value="SA-91">SASAN_EXP</option>
+                <option value="SK-91">SKS_EXPP</option>
+                {# <option value="SP-91">SIPAT_EXPP</option> #}
+                <option value="SS-91">SSP_EXPP</option>
+                <option value="TA-91">TAPS1_EXPP</option>
+                <option value="TA-94">TAPS2_EXPP</option>
+                <option value="TR-91">TRN_EXPP</option>
+                <option value="VI-96">VIN1_EXPP</option>
+                <option value="VI-97">VIN2_EXPP</option>
+                <option value="VI-99">VIN3_EXPP</option>
+                <option value="VI-V4">VSTPSIV_EXPP</option>
+                <option value="VI-V5">VSTPS5_EXPP</option>
+                <option value="SO-91">SNTPC_EXPP</option>
+                <option value="LA-91">LARA4_EXPP</option>
+                <option value="GD-91">GDRWD_EXPP</option>
+                <option value="KH-91">KHRGN_EXPP</option>
             </select>
         </div>
     </div>
@@ -63,7 +96,7 @@
 {% if data %}
     {# dynamic div testing #}
     {% set l = 0 %}
-    {% for reList,err in div_info %}
+    {% for isgsList,err in div_info %}
         <div class="container mb-5">
             <br>
             <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
