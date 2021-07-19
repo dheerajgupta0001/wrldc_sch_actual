@@ -28,7 +28,7 @@ class PlotScadaSemData():
             dictionary of lists of scada sem data!!!
         """
         try:
-            print("cursor created")
+            # print("cursor created")
             connection = cx_Oracle.connect(self.connString)
             cursor = connection.cursor()
             endDate= endDate+dt.timedelta(hours=23, minutes=59, seconds=00)
@@ -41,7 +41,7 @@ class PlotScadaSemData():
                         order by TIME_STAMP
                         """
             cursor.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' ")
-            print("cursor executed")
+            # print("cursor executed")
             data = pd.read_sql(sql_fetch, params={
                 'start_date': startDate, 'end_date': endDate}, con=connection)
             # print(data)
@@ -53,7 +53,7 @@ class PlotScadaSemData():
             if cursor is not None:
                 cursor.close()
             connection.close()
-            print('closed db connection after scada sem data fetching')
+            # print('closed db connection after scada sem data fetching')
         
         # set proper date time format
         times = data['TIME_STAMP']
