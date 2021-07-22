@@ -56,7 +56,8 @@ def create():
                                                         startDate, endDate,  reName)
             isRawCreationSuccess = scadaSemReRepo.pushScadaSemReRecord(scadaSemReRecord)
             if isRawCreationSuccess:
-                print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए सफल".format( reName))
+                # print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए सफल".format( reName))
+                print("Done")
             else:
                 print("स्काडा सेम आरई डेटा प्रविष्टि {} के लिए असफल".format( reName))
         # print(errorPerc[0])

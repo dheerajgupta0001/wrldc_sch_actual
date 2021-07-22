@@ -99,8 +99,8 @@ def testFetchSemSummaryForDate(scadaSemFolderPath: str, targetDt: dt.datetime, s
             # print(dataRowVals)
             schDfRows.append(dataRowVals)
         excelDf = pd.DataFrame(data=schDfRows)
-        excelDf = excelDf.iloc[:, [0,14]]
-        excelDf.rename(columns = {0: 'Timestamp', 14:'semData'}, inplace = True)
+        excelDf = excelDf.iloc[:, [0,15]]
+        excelDf.rename(columns = {0: 'Timestamp', 15:'semData'}, inplace = True)
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
     semData = excelDf["semData"].tolist()
