@@ -43,3 +43,14 @@
         </div>
     </div>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="false" aria-controls="collapseReports">
+        <span>स्काडा बनाम सेम रिपोर्ट</span>
+    </a>
+    <div id="collapseReports" class="collapse show" aria-labelledby="headingFreq" data-parent="#accordionSidebar" style="">
+        <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="{{ url_for('scadaSemReports.weekly') }}">साप्ताहिक रिपोर्ट</a>
+        <a class="collapse-item" href="{{ url_for('scadaSemReports.monthly') }}">मासिक रिपोर्ट</a>
+        </div>
+    </div>
+</li>

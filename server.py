@@ -17,6 +17,7 @@ from src.graphDataFetcher.graphPlotDataFetcher import PlotScadaSemData
 from src.graphDataFetcher.stateName import stateNameData
 from src.routeControllers.scadaSemReData import scadaSemRePage
 from src.routeControllers.scadaSemIsgsData import scadaSemIsgsPage
+from src.routeControllers.scadaSemReports import scadaSemReportsPage
 
 app = Flask(__name__)
 
@@ -119,6 +120,7 @@ def plotGraph():
 
 app.register_blueprint(scadaSemRePage, url_prefix='/scadaSemRe')
 app.register_blueprint(scadaSemIsgsPage, url_prefix='/scadaSemIsgs')
+app.register_blueprint(scadaSemReportsPage, url_prefix='/scadaSemReports')
 
 if __name__ == '__main__':
     serverMode: str = appConfig['mode']
