@@ -34,16 +34,16 @@ def fetchIsgsErrorReportData(endDate, appDbConnStr: str):
         PlotScadaSemIsgsDataRepo = PlotScadaSemIsgsData(appDbConnStr)
 
         # fetch scada sem data from db via the repository instance of ith state
-        dfData_gInd, errorPercWeek4 = PlotScadaSemIsgsDataRepo.PlotScadaSemIsgsData(
+        dfData_gInd, errorPercWeek4 = PlotScadaSemIsgsDataRepo.plotScadaSemIsgsData(
             startDate3, endDate3, currIsgsName)
 
-        dfData_gInd, errorPercWeek3 = PlotScadaSemIsgsDataRepo.PlotScadaSemIsgsData(
+        dfData_gInd, errorPercWeek3 = PlotScadaSemIsgsDataRepo.plotScadaSemIsgsData(
             startDate2, endDate2, currIsgsName)
 
-        dfData_gInd, errorPercWeek2 = PlotScadaSemIsgsDataRepo.PlotScadaSemIsgsData(
+        dfData_gInd, errorPercWeek2 = PlotScadaSemIsgsDataRepo.plotScadaSemIsgsData(
             startDate1, endDate1, currIsgsName)
 
-        dfData_gInd, errorPercWeek1 = PlotScadaSemIsgsDataRepo.PlotScadaSemIsgsData(
+        dfData_gInd, errorPercWeek1 = PlotScadaSemIsgsDataRepo.plotScadaSemIsgsData(
             startDate, endDate, currIsgsName)
 
         state = isgsDisplayNameData(currIsgsName)
@@ -53,31 +53,31 @@ def fetchIsgsErrorReportData(endDate, appDbConnStr: str):
         errorPerc2.append(errorPercWeek2)
         errorPerc3.append(errorPercWeek3)
         errorPerc4.append(errorPercWeek4)
-        endDate = dt.datetime.strftime(endDate, '%d-%m-%Y')
-        endDate1 = dt.datetime.strftime(endDate1, '%d-%m-%Y')
-        endDate2 = dt.datetime.strftime(endDate2, '%d-%m-%Y')
-        endDate3 = dt.datetime.strftime(endDate3, '%d-%m-%Y')
-        startDate = dt.datetime.strftime(startDate, '%d-%m-%Y')
-        startDate1 = dt.datetime.strftime(startDate1, '%d-%m-%Y')
-        startDate2 = dt.datetime.strftime(startDate2, '%d-%m-%Y')
-        startDate3 = dt.datetime.strftime(startDate3, '%d-%m-%Y')
-        week4 = str(startDate3) + " " + str(endDate3)
-        week3 = str(startDate2) + " " + str(endDate2)
-        week2 = str(startDate1) + " " + str(endDate1)
-        week1 = str(startDate) + " " + str(endDate)
-        isgsColumnNameList.append(week4)
-        isgsColumnNameList.append(week3)
-        isgsColumnNameList.append(week2)
-        isgsColumnNameList.append(week1)
+    endDate = dt.datetime.strftime(endDate, '%d-%m-%Y')
+    endDate1 = dt.datetime.strftime(endDate1, '%d-%m-%Y')
+    endDate2 = dt.datetime.strftime(endDate2, '%d-%m-%Y')
+    endDate3 = dt.datetime.strftime(endDate3, '%d-%m-%Y')
+    startDate = dt.datetime.strftime(startDate, '%d-%m-%Y')
+    startDate1 = dt.datetime.strftime(startDate1, '%d-%m-%Y')
+    startDate2 = dt.datetime.strftime(startDate2, '%d-%m-%Y')
+    startDate3 = dt.datetime.strftime(startDate3, '%d-%m-%Y')
+    week4 = str(startDate3) + " " + str(endDate3)
+    week3 = str(startDate2) + " " + str(endDate2)
+    week2 = str(startDate1) + " " + str(endDate1)
+    week1 = str(startDate) + " " + str(endDate)
+    isgsColumnNameList.append(week4)
+    isgsColumnNameList.append(week3)
+    isgsColumnNameList.append(week2)
+    isgsColumnNameList.append(week1)
 
-        isgsTableError = pd.DataFrame(
-            {'isgs': stateList,
-                'week1': errorPerc4,
-                'week2': errorPerc3,
-                'week3': errorPerc2,
-                'week4': errorPerc1
-             })
-        isgsTableError = isgsTableError.to_records(index=False)
-        isgsTableError = list(isgsTableError)
+    isgsTableError = pd.DataFrame(
+        {'isgs': stateList,
+            'week1': errorPerc4,
+            'week2': errorPerc3,
+            'week3': errorPerc2,
+            'week4': errorPerc1
+            })
+    isgsTableError = isgsTableError.to_records(index=False)
+    isgsTableError = list(isgsTableError)
 
     return isgsTableError, isgsColumnNameList

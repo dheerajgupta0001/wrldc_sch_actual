@@ -29,22 +29,25 @@ def weekly():
         reportList = ["constituents", "re", "isgs"]
         for reportType in reportList:
             if reportType == "constituents":
-                constituentsTableError, columnNameList = fetchConsErrorReportData(endDate, appDbConnStr)
+                constituentsTableError, columnNameList = fetchConsErrorReportData(
+                    endDate, appDbConnStr)
                 print(reportType)
 
             elif reportType == "re":
-                # reTableError, reColumnNameList = fetchReErrorReportData(
-                #     endDate, appDbConnStr)
+                reTableError, reColumnNameList = fetchReErrorReportData(
+                    endDate, appDbConnStr)
                 print(reportType)
             elif reportType == "isgs":
-                # isgsTableError, isgsColumnNameList = fetchIsgsErrorReportData(
-                #     endDate, appDbConnStr)
+                isgsTableError, isgsColumnNameList = fetchIsgsErrorReportData(
+                    endDate, appDbConnStr)
                 print(reportType)
 
         # testing of multiple div dynamically
 
         return render_template('scadaSemReport/weekly.html.j2',
-                        constituentsTableError=constituentsTableError, columnNameList=columnNameList)
+                               constituentsTableError=constituentsTableError, columnNameList=columnNameList,
+                               reTableError = reTableError, reColumnNameList = reColumnNameList,
+                               isgsTableError = isgsTableError, isgsColumnNameList = isgsColumnNameList)
     # in case of get request just return the html template
     return render_template('scadaSemReport/weekly.html.j2')
 
