@@ -52,7 +52,7 @@ def fetchReScadaSummaryForDate( scadaReFolderPath: str, targetDt: dt.datetime, r
         column = "Gadhsisa_Wind"
     excelDf = excelDf.loc[:, ["Timestamp", column]]
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
-    excelDf['Timestamp'] = excelDf['Timestamp'].apply(lambda x: dt.datetime.strftime(x, '%Y-%d-%m %H:%M:%S'))
+    # excelDf['Timestamp'] = excelDf['Timestamp'].apply(lambda x: dt.datetime.strftime(x, '%Y-%d-%m %H:%M:%S'))
     # to get month from timestamp
     # month = pd.DatetimeIndex(excelDf['Timestamp']).month
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],format="%Y-%m-%d %H:%M:S")
