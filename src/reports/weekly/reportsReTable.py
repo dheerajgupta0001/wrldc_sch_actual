@@ -50,31 +50,31 @@ def fetchReErrorReportData(endDate, appDbConnStr: str):
         errorPerc2.append(errorPercWeek2)
         errorPerc3.append(errorPercWeek3)
         errorPerc4.append(errorPercWeek4)
-        endDate = dt.datetime.strftime(endDate, '%d-%m-%Y')
-        endDate1 = dt.datetime.strftime(endDate1, '%d-%m-%Y')
-        endDate2 = dt.datetime.strftime(endDate2, '%d-%m-%Y')
-        endDate3 = dt.datetime.strftime(endDate3, '%d-%m-%Y')
-        startDate = dt.datetime.strftime(startDate, '%d-%m-%Y')
-        startDate1 = dt.datetime.strftime(startDate1, '%d-%m-%Y')
-        startDate2 = dt.datetime.strftime(startDate2, '%d-%m-%Y')
-        startDate3 = dt.datetime.strftime(startDate3, '%d-%m-%Y')
-        week4 = str(startDate3) + " " + str(endDate3)
-        week3 = str(startDate2) + " " + str(endDate2)
-        week2 = str(startDate1) + " " + str(endDate1)
-        week1 = str(startDate) + " " + str(endDate)
-        reColumnNameList.append(week4)
-        reColumnNameList.append(week3)
-        reColumnNameList.append(week2)
-        reColumnNameList.append(week1)
+    endDate = dt.datetime.strftime(endDate, '%d-%m-%Y')
+    endDate1 = dt.datetime.strftime(endDate1, '%d-%m-%Y')
+    endDate2 = dt.datetime.strftime(endDate2, '%d-%m-%Y')
+    endDate3 = dt.datetime.strftime(endDate3, '%d-%m-%Y')
+    startDate = dt.datetime.strftime(startDate, '%d-%m-%Y')
+    startDate1 = dt.datetime.strftime(startDate1, '%d-%m-%Y')
+    startDate2 = dt.datetime.strftime(startDate2, '%d-%m-%Y')
+    startDate3 = dt.datetime.strftime(startDate3, '%d-%m-%Y')
+    week4 = str(startDate3) + " " + str(endDate3)
+    week3 = str(startDate2) + " " + str(endDate2)
+    week2 = str(startDate1) + " " + str(endDate1)
+    week1 = str(startDate) + " " + str(endDate)
+    reColumnNameList.append(week4)
+    reColumnNameList.append(week3)
+    reColumnNameList.append(week2)
+    reColumnNameList.append(week1)
 
-        reTableError = pd.DataFrame(
-            {'re': stateList,
-                'week1': errorPerc4,
-                'week2': errorPerc3,
-                'week3': errorPerc2,
-                'week4': errorPerc1
-             })
-        reTableError = reTableError.to_records(index=False)
-        reTableError = list(reTableError)
+    reTableError = pd.DataFrame(
+        {'re': stateList,
+            'week1': errorPerc4,
+            'week2': errorPerc3,
+            'week3': errorPerc2,
+            'week4': errorPerc1
+            })
+    reTableError = reTableError.to_records(index=False)
+    reTableError = list(reTableError)
 
     return reTableError, reColumnNameList
