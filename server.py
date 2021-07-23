@@ -63,7 +63,8 @@ def createScadaSemData():
                                                         semFolderPath, startDate, endDate, stateName)
             isRawCreationSuccess = scadaSemRepo.pushScadaSemRecord(scadaSemRecord)
             if isRawCreationSuccess:
-                print("स्काडा सेम संघटक डेटा प्रविष्टि {} के लिए सफल".format(stateName))
+                # print("स्काडा सेम संघटक डेटा प्रविष्टि {} के लिए सफल".format(stateName))
+                print("Done")
             else:
                 print("स्काडा सेम संघटक डेटा प्रविष्टि {} के लिए असफल".format(stateName))
         # print(errorPerc[0])
@@ -123,7 +124,7 @@ app.register_blueprint(scadaSemReportsPage, url_prefix='/scadaSemReports')
 
 if __name__ == '__main__':
     serverMode: str = appConfig['mode']
-    if serverMode.lower() == 'd':
+    if serverMode.lower() == 'p':
         app.run(host="0.0.0.0", port=int(appConfig['flaskPort']), debug=True)
     else:
         serve(app, host='0.0.0.0', port=int(appConfig['flaskPort']), threads=1)

@@ -66,11 +66,10 @@ def create():
             isRawCreationSuccess = scadaSemIsgsRepo.pushScadaSemIsgsRecord(
                 scadaSemIsgsRecord)
             if isRawCreationSuccess:
-                print(
-                    "स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए सफल".format(isgsName))
+                # print("स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए सफल".format(isgsName))
+                print("Done")
             else:
-                print(
-                    "स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए असफल".format(isgsName))
+                print("स्काडा सेम आईएसजीएस डेटा प्रविष्टि {} के लिए असफल".format(isgsName))
         # print(errorPerc[0])
         startDate = dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strftime(endDate, '%Y-%m-%d')
