@@ -28,7 +28,6 @@
                 {% for colName in columnNameList %}
                 <th>{{colName}}</th>
                 {% endfor %}
-                
             </tr>
         </thead>    
         <tbody>
@@ -38,7 +37,43 @@
                     <td>{{value}}</td>
                 {% endfor %}
             </tr>
-            {% endfor %}    
+            {% endfor %} 
+        </tbody>
+    </table>
+    <table id="example1" class="table table-bordered table-hover display w-auto">
+        <thead>
+            <tr>
+                {% for colName in reColumnNameList %}
+                <th>{{colName}}</th>
+                {% endfor %}
+            </tr>
+        </thead>    
+        <tbody>
+            {% for row in reTableError %}
+            <tr>
+                {% for value in row %}
+                    <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table id="example2" class="table table-bordered table-hover display w-auto">
+        <thead>
+            <tr>
+                {% for colName in isgsColumnNameList %}
+                <th>{{colName}}</th>
+                {% endfor %}
+            </tr>
+        </thead>    
+        <tbody>
+            {% for row in isgsTableError %}
+            <tr>
+                {% for value in row %}
+                    <td>{{value}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %} 
         </tbody>
     </table>
 
@@ -69,7 +104,7 @@
             "pageLength": 50,
             dom: 'Bfrtip',
             "order": [[0, "asc"]],
-            buttons: ['pageLength', 'csv', 'excel', 'pdf', 'print']
+            buttons: ['excel', 'pdf']
         });
         var r = $('#example tfoot tr');
         r.find('th').each(function () {
@@ -79,6 +114,66 @@
         // Apply the filter
         // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/examples/api/multi_filter.html
         $("#example thead input").on('keyup change', function () {
+            filesTable
+                .column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#example1 tfoot th').each(function () {
+            //var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+        var filesTable = $('#example1').DataTable({
+            fixedHeader: true,
+            "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+            "pageLength": 50,
+            dom: 'Bfrtip',
+            "order": [[0, "asc"]],
+            buttons: ['excel', 'pdf']
+        });
+        var r = $('#example1 tfoot tr');
+        r.find('th').each(function () {
+            $(this).css('padding', '3px');
+        });
+        $('#example1 thead').append(r);
+        // Apply the filter
+        // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/example1s/api/multi_filter.html
+        $("#example1 thead input").on('keyup change', function () {
+            filesTable
+                .column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#example2 tfoot th').each(function () {
+            //var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+        var filesTable = $('#example2').DataTable({
+            fixedHeader: true,
+            "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100, "All"]],
+            "pageLength": 50,
+            dom: 'Bfrtip',
+            "order": [[0, "asc"]],
+            buttons: ['excel', 'pdf']
+        });
+        var r = $('#example2 tfoot tr');
+        r.find('th').each(function () {
+            $(this).css('padding', '3px');
+        });
+        $('#example2 thead').append(r);
+        // Apply the filter
+        // https://www.jqueryscript.net/demo/DataTables-Jquery-Table-Plugin/example2s/api/multi_filter.html
+        $("#example2 thead input").on('keyup change', function () {
             filesTable
                 .column($(this).parent().index() + ':visible')
                 .search(this.value)

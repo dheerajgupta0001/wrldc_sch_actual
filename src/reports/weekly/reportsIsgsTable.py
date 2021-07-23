@@ -28,7 +28,7 @@ def fetchIsgsErrorReportData(endDate, appDbConnStr: str):
     errorPerc4 = []
     stateList = []
     isgsColumnNameList = []
-    isgsColumnNameList.append("RE")
+    isgsColumnNameList.append("ISGS")
     for currIsgsName in isgsList:
         # get the instance of scada sem repository for GRAPH PLOTTING
         PlotScadaSemIsgsDataRepo = PlotScadaSemIsgsData(appDbConnStr)
