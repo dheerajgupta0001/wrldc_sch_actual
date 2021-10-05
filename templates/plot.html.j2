@@ -64,12 +64,15 @@
 {% if data %}
     {# dynamic div testing #}
     {% set l = 0 %}
-    {% for consList,err in div_info %}
+    {% for consList,err,divItr in div_info %}
         <div class="container mb-5">
             <br>
             <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
         </div>
         <div id={{consList}}></div>
+        {% if divItr%2==0 %}
+            <div class="pagebrk"></div>
+        {% endif %}
     {% endfor %}
     {% set dfData = data %}
     <script>
@@ -95,6 +98,12 @@
          @page{
          size:auto;
          }
+         @media print {
+            .pagebrk {
+                clear: both;
+                page-break-after: always;
+            }
+        }
     </style>
 
 {% endblock %}

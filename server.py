@@ -95,7 +95,8 @@ def plotGraph():
         dfData_g = []
         errorPerc = []
         stateList = []
-        for stateName in constituentsName:
+        divItrs = []
+        for cItr, stateName in enumerate(constituentsName):
             #get the instance of scada sem repository for GRAPH PLOTTING
             plotScadaSemDataRepo = PlotScadaSemData(appDbConnStr)
 
@@ -105,10 +106,12 @@ def plotGraph():
             stateList.append(state)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
+            divItrs.append(cItr+1)
+            
         # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
-        div_info = zip(constituentsName, errorPerc)
+        div_info = zip(constituentsName, errorPerc, divItrs)
         # print(stateList)
         # print(errorPerc)
 

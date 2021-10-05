@@ -104,7 +104,8 @@ def plot():
         dfData_g = []
         errorPerc = []
         isgsDisplayList = []
-        for currIsgsName in isgsName:
+        divItrs = []
+        for cItr,currIsgsName in enumerate(isgsName):
             # get the instance of scada sem isgs repository for GRAPH PLOTTING
             plotScadaSemIsgsDataRepo = PlotScadaSemIsgsData(appDbConnStr)
 
@@ -115,10 +116,11 @@ def plot():
             isgsDisplayList.append(isgs)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
+            divItrs.append(cItr+1)
         # print(errorPerc[0])
         startDate = dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strftime(endDate, '%Y-%m-%d')
-        div_info = zip(isgsName, errorPerc)
+        div_info = zip(isgsName, errorPerc, divItrs)
         # print(reDisplayList)
         print(errorPerc)
 
