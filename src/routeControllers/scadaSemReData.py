@@ -88,7 +88,8 @@ def plot():
         dfData_g = []
         errorPerc = []
         reDisplayList = []
-        for currReName in reName:
+        divItrs = []
+        for cItr,currReName in enumerate(reName):
             #get the instance of scada sem repository for GRAPH PLOTTING
             plotScadaSemReDataRepo = PlotScadaSemReData(appDbConnStr)
 
@@ -98,10 +99,11 @@ def plot():
             reDisplayList.append(re)
             dfData_g.append(dfData_gInd)
             errorPerc.append(errorPercInd)
+            divItrs.append(cItr+1)
         # print(errorPerc[0])
         startDate=dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate=dt.datetime.strftime(endDate, '%Y-%m-%d')
-        div_info = zip(reName, errorPerc)
+        div_info = zip(reName, errorPerc, divItrs)
         # print(reDisplayList)
         print(errorPerc)
 

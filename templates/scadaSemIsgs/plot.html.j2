@@ -38,18 +38,20 @@
 </form>
 
 {% block scripts %}
-<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'isgs/multiSelect.js') }}"></script>
 <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'isgs/index.js') }}"></script>
 <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
 {% if data %}
     {# dynamic div testing #}
     {% set l = 0 %}
-    {% for isgsList,err in div_info %}
+    {% for isgsList,err,divItr in div_info %}
         <div class="container mb-5">
             <br>
             <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
         </div>
         <div id={{isgsList}}></div>
+        {% if divItr%2==0 %}
+            <div class="pagebrk"></div>
+        {% endif %}
     {% endfor %}
     {% set dfData = data %}
     <script>
@@ -60,10 +62,6 @@
             loadPlotData();
         }
     </script>
-    {# <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 're/index.js') }}"></script>
-    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
-    {# <script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script> #}
-    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/chosen-js/chosen.jquery.min.js') }}"></script> #}
 {% endif %}
     <style>
         thead input {
@@ -76,6 +74,15 @@
              float:right;
              font-size: 22px;
          }
+         @page{
+         size:auto;
+         }
+         @media print {
+            .pagebrk {
+                clear: both;
+                page-break-after: always;
+            }
+        }
     </style>
 
 {% endblock %}
