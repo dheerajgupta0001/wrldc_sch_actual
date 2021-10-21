@@ -15,7 +15,7 @@ def fetchReErrorReportData(endDate, appDbConnStr: str):
     endDate3 = endDate - dt.timedelta(days=21)
     startDate3 = endDate3 - dt.timedelta(days=6)
     reList = ["OS-91", "AM-91", "MA-91", "AR-91", "RE-91",
-              "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91"]
+              "GI-91", "GI-94", "IX-91", "AG-91", "AF-91", "GH-91", "EG-91", "GP-91", "TP-91"]
     # print(reList)
     # testing of multiple div dynamically
     dfData_g = []

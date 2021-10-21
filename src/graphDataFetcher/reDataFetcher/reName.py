@@ -27,3 +27,13 @@ def reDisplayNameData(stateName: str):
         return "अल्फानारी पवन"
     elif stateName == "GH-91":
         return "गढ़सीसा पवन"
+
+    elif stateName == "EG-91":
+        return "एंजी सोलर"
+    elif stateName == "GP-91":
+        return "जीआईपीसीएल सोलर"
+    elif stateName == "TP-91":
+        return "टीपीआरईएल सोलर"
+
+
+        

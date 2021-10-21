@@ -17,6 +17,8 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d%m%y')
     targetFilename = '{0}.{1}'.format(fileDateStr, 'IN7')
+    if reName in ["EG-91", "GP-91", "TP-91"]:
+        targetFilename = '{0}.{1}'.format(fileDateStr, 'RD1')
     targetFilePath = os.path.join(semReFolderPath, targetFilename)
     print(targetFilePath)
 
@@ -78,6 +80,16 @@ def fetchReSemSummaryForDate(semReFolderPath: str, targetDt: dt.datetime, reName
     elif reName == "GH-91":
         excelDf = excelDf.iloc[:, [0,27]]
         excelDf.rename(columns = {0: 'Timestamp', 27:'semData'}, inplace = True)
+
+    elif reName == "EG-91":
+        excelDf = excelDf.iloc[:, [0,5]]
+        excelDf.rename(columns = {0: 'Timestamp', 5:'semData'}, inplace = True)
+    elif reName == "GP-91":
+        excelDf = excelDf.iloc[:, [0,6]]
+        excelDf.rename(columns = {0: 'Timestamp', 6:'semData'}, inplace = True)
+    elif reName == "TP-91":
+        excelDf = excelDf.iloc[:, [0,7]]
+        excelDf.rename(columns = {0: 'Timestamp', 7:'semData'}, inplace = True)
 
     # convert string typed column to float
     excelDf['semData'] = excelDf['semData'].astype(float)
