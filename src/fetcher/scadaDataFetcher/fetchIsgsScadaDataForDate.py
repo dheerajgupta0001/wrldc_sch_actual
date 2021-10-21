@@ -29,7 +29,7 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
     # print("scada Data")
     # print(excelDf)
     # print(isgsName)
-    if isgsName == "AC-91":
+    if isgsName == "AC-94":
         column = "ACBIL_EXPP"
     elif isgsName == "BL-91":
         column = "BALCO_EXPP"

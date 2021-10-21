@@ -38,7 +38,6 @@
 </form>
 
 {% block scripts %}
-<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'isgs/multiSelect.js') }}"></script>
 <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'isgs/index.js') }}"></script>
 <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
 {% if data %}
@@ -63,10 +62,6 @@
             loadPlotData();
         }
     </script>
-    {# <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 're/index.js') }}"></script>
-    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/plotly.js-dist/plotly.js') }}"></script>
-    {# <script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script> #}
-    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'node_modules/chosen-js/chosen.jquery.min.js') }}"></script> #}
 {% endif %}
     <style>
         thead input {
