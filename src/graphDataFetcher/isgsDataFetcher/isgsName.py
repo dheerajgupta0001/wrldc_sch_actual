@@ -5,8 +5,8 @@ def isgsDisplayNameData(stateName: str):
     Returns:
         Name of the state for graph plotting!!!
     """
-    if stateName == "AC-94":
-        return "ACBIL_EXPP"
+    if stateName == "AC-91":
+        return "ACBIL_SPECTRUM_MCPL"
     elif stateName == "BL-91":
         return "BALCO_EXPP"
     elif stateName == "CG-91":

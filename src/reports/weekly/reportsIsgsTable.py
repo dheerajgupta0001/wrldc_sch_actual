@@ -14,7 +14,7 @@ def fetchIsgsErrorReportData(endDate, appDbConnStr: str):
     startDate2 = endDate2 - dt.timedelta(days=6)
     endDate3 = endDate - dt.timedelta(days=21)
     startDate3 = endDate3 - dt.timedelta(days=6)
-    isgsList = ["AC-94", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91",
+    isgsList = ["AC-91", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91",
                 "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98",
                 "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91",
                 "RK-91", "SA-91", "SK-91", "SS-91", "TA-91", "TA-94", "TR-91", "VI-96",

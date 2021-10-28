@@ -29,8 +29,12 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
     # print("scada Data")
     # print(excelDf)
     # print(isgsName)
-    if isgsName == "AC-94":
+    
+    #  acbil addition with mcpl test starts
+    if isgsName == "AC-91":
+        excelDf["ACBIL_EXPP"] = excelDf["ACBIL_EXPP"] + excelDf["MCPL_EXPP"] 
         column = "ACBIL_EXPP"
+    #  acbil addition with mcpl test ends
     elif isgsName == "BL-91":
         column = "BALCO_EXPP"
     elif isgsName == "CG-91":
@@ -122,6 +126,7 @@ def fetchIsgsScadaSummaryForDate( scadaIsgsFolderPath: str, targetDt: dt.datetim
     # excelDf['Timestamp'] = pd.to_datetime(excelDf["Timestamp"],dayfirst=True)
     # excelDf['Timestamp'] = excelDf['Timestamp'].apply(lambda x: dt.datetime.strftime(x, '%Y-%d-%m %H:%M:%S'))
     excelDf[column]= excelDf[[column]].div(4, axis=0)
+
     scadaData = excelDf[column].tolist()
     # timeStamp = list(excelDf.index)
     excelDf['Timestamp'] = pd.to_datetime(excelDf.Timestamp)

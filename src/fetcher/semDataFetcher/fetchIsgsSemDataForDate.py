@@ -15,14 +15,14 @@ def fetchIsgsSemSummaryForDate(semIsgsFolderPath: str, targetDt: dt.datetime, is
     """
     # sample excel filename - PMU_availability_Report_05_08_2020.xlsx
     fileDateStr = dt.datetime.strftime(targetDt, '%d%m%y')
-    if isgsName == "AC-94":
-        targetFilename = '{0}.{1}'.format(fileDateStr, 'AC1')
-    elif isgsName in ["BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91", "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98", "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91", "RK-91", "SA-91"]:
+    # if isgsName == "AC-91":
+    #     targetFilename = '{0}.{1}'.format(fileDateStr, 'AC1')
+    if isgsName in ["AC-91", "BL-91", "CG-91", "DB-91", "DC-91", "DG-91", "DW-91", "EM-91", "GA-91", "GM-91", "JD-96", "JD-97", "JH-91", "JY-91", "KA-91", "KB-91", "KO-97", "KO-98", "KS-91", "KW-91", "LK-91", "MB-91", "MD-96", "MD-97", "MN-91", "NS-91", "RG-91", "RK-91", "SA-91"]:
         targetFilename = '{0}.{1}'.format(fileDateStr, 'IN6')
     else:
         targetFilename = '{0}.{1}'.format(fileDateStr, 'IN7')
     targetFilePath = os.path.join(semIsgsFolderPath, targetFilename)
-    # print(targetFilePath)
+    print(targetFilePath)
 
     # check if excel file is present
     if not os.path.isfile(targetFilePath):
@@ -49,23 +49,23 @@ def fetchIsgsSemSummaryForDate(semIsgsFolderPath: str, targetDt: dt.datetime, is
         excelDf = pd.DataFrame(data=schDfRows)
     # print(excelDf)
     # print(excelDf.columns)
-    if isgsName in ["SK-91"]:
+    if isgsName in ["SK-91", "AC-91"]:
         excelDf = excelDf.iloc[:, [0, 2]]
         excelDf.rename(columns={0: 'Timestamp', 2: 'semData'}, inplace=True)
 
-    elif isgsName in ["AC-94"]:
-        schDfRows = []
-        # read the values from line 10 to 105
-        for rowInd in range(9, 105):
-            # read the data line
-            dataRowVals = fLines[rowInd].split()
-            dataRowVals = [k for k in dataRowVals[0:]]
-            # print("row")
-            # print(dataRowVals)
-            schDfRows.append(dataRowVals)
-        excelDf = pd.DataFrame(data=schDfRows)
-        excelDf = excelDf.iloc[:, [0, 6]]
-        excelDf.rename(columns={0: 'Timestamp', 6: 'semData'}, inplace=True)
+    # elif isgsName in ["AC-91"]:
+    #     schDfRows = []
+    #     # read the values from line 10 to 105
+    #     for rowInd in range(9, 105):
+    #         # read the data line
+    #         dataRowVals = fLines[rowInd].split()
+    #         dataRowVals = [k for k in dataRowVals[0:]]
+    #         # print("row")
+    #         # print(dataRowVals)
+    #         schDfRows.append(dataRowVals)
+    #     excelDf = pd.DataFrame(data=schDfRows)
+    #     excelDf = excelDf.iloc[:, [0, 6]]
+    #     excelDf.rename(columns={0: 'Timestamp', 6: 'semData'}, inplace=True)
     elif isgsName in ["BL-91", "SP-91"]:
         excelDf = excelDf.iloc[:, [0, 3]]
         excelDf.rename(columns={0: 'Timestamp', 3: 'semData'}, inplace=True)
