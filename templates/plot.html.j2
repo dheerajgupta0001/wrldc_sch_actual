@@ -35,20 +35,15 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
-            <label for="consList">घटक (ओं) का नाम चुनें:</label>
-            <select multiple class="chosen-select" name="consList" required="" id="consList" style="color:black" placeholder="Select location here..">
-                <option value="CS1">छत्तीसगढ</option>
-                <option value="DN1">दादरा नगर हवेली</option>
-                <option value="DD1">दमन दीव</option>
-                <option value="GO1">गोवा</option>
-                <option value="MP2">मध्य प्रदेश</option>
-                <option value="GU2">गुजरात</option>
-                <option value="MH2">महाराष्ट्र</option>
-                <option value="NR1">उत्तरी क्षेत्र</option>
-                <option value="SR1">दक्षिणी क्षेत्र</option>
-                <option value="ER1">पूर्वी क्षेत्र</option>
-                <option value="HZ1">हजीरा</option>
-                <option value="BR1">BARC</option>
+            <label for="stateName">घटक (ओं) का नाम चुनें:</label>
+            <select multiple class="chosen-select" name="stateName" required="" id="stateName" style="color:black" placeholder="Select location here..">
+                <option value="CS">छत्तीसगढ</option>
+                <option value="DNH">दादरा नगर हवेली</option>
+                <option value="DD">दमन दीव</option>
+                <option value="GO">गोवा</option>
+                <option value="MP">मध्य प्रदेश</option>
+                <option value="GU">गुजरात</option>
+                <option value="MH">महाराष्ट्र</option>
             </select>
         </div>
     </div>
@@ -64,12 +59,12 @@
 {% if data %}
     {# dynamic div testing #}
     {% set l = 0 %}
-    {% for consList,err,divItr in div_info %}
+    {% for stateName,err,divItr in div_info %}
         <div class="container mb-5">
             <br>
             <span id= "dnhBlockNoSpan"class="text-dark rightSpan">त्रुटि प्रतिशत:{{err}}</span>
         </div>
-        <div id={{consList}}></div>
+        <div id={{stateName}}></div>
         {% if divItr%2==0 %}
             <div class="pagebrk"></div>
         {% endif %}

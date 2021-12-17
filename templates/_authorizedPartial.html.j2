@@ -10,47 +10,11 @@
 <!-- Nav Item - Dashboard -->
 <li class="nav-item">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseFreq" aria-expanded="false" aria-controls="collapseFreq">
-        <span>स्काडा बनाम सेम संघटक</span>
+        <span>शैड्यूल बनाम ड्रावल</span>
     </a>
     <div id="collapseFreq" class="collapse show" aria-labelledby="headingFreq" data-parent="#accordionSidebar" style="">
         <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/createScadaSemData">स्काडा-सेम घटक डेटा बनाएं</a>
-        <a class="collapse-item" href="/plotGraph">प्लॉट घटकों का ग्राफ</a>
-        </div>
-    </div>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseRe" aria-expanded="false" aria-controls="collapseRe">
-        <span>स्काडा बनाम सेम आरई</span>
-    </a>
-    <div id="collapseRe" class="collapse show" aria-labelledby="headingFreq" data-parent="#accordionSidebar" style="">
-        <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="{{ url_for('scadaSemRe.create') }}">स्काडा-सेम आरई डेटा बनाएं</a>
-        {# <a class="collapse-item" href="/scadaSemRe/create">CREATE SCADA-SEM RE DATA</a> #}
-        <a class="collapse-item" href="{{ url_for('scadaSemRe.plot') }}">प्लॉट आरई का ग्राफ</a>
-        </div>
-    </div>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseIsgs" aria-expanded="false" aria-controls="collapseIsgs">
-        <span>स्काडा बनाम सेम आईएसजीएस</span>
-    </a>
-    <div id="collapseIsgs" class="collapse show" aria-labelledby="headingFreq" data-parent="#accordionSidebar" style="">
-        <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="{{ url_for('scadaSemIsgs.create') }}">स्काडा-सेम आईएसजीएस डेटा बनाएं</a>
-        {# <a class="collapse-item" href="/scadaSemRe/create">CREATE SCADA-SEM RE DATA</a> #}
-        <a class="collapse-item" href="{{ url_for('scadaSemIsgs.plot') }}">प्लॉट आईएसजीएस का ग्राफ</a>
-        </div>
-    </div>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="false" aria-controls="collapseReports">
-        <span>स्काडा बनाम सेम रिपोर्ट</span>
-    </a>
-    <div id="collapseReports" class="collapse show" aria-labelledby="headingFreq" data-parent="#accordionSidebar" style="">
-        <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="{{ url_for('scadaSemReports.weekly') }}">साप्ताहिक रिपोर्ट</a>
-        <a class="collapse-item" href="{{ url_for('scadaSemReports.monthly') }}">मासिक रिपोर्ट</a>
+        <a class="collapse-item" href="/plotGraph">शैड्यूल ड्रावल का ग्राफ</a>
         </div>
     </div>
 </li>

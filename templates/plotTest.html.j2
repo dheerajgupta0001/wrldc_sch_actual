@@ -1,0 +1,110 @@
+{% extends "layoutBase.html.j2" %}
+{% block title %}शैड्यूल ड्रावल ग्राफ{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<style type='text/css'>
+    h1 {
+    color : black;
+    }
+    h3 {
+    color : black;
+    border: 0.4rem solid transparent;
+    /* width: 8em;
+    height: 10em; */
+    max-height: 30em;
+    overflow: auto;
+    font-size: 1.5rem;
+    padding: 1rem;
+    }
+</style>
+<h1><strong>शैड्यूल ड्रावल ग्राफ प्रदर्शित करें</h1>
+<form class="form" method="POST">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+        <label for="startDate">आरंभ तिथि</label>
+        <input type="date" class="form-control bg-light border-1 mr-2" required="" name = "startDate" id="startDate" {% if startDate %} value="{{startDate}}" {% endif %}>
+        </div>
+        <div class="form-group col-md-6">
+        <label for="endDate">समाप्ति तिथि</label>
+        <input type="date" name = "endDate" class="form-control" required id="endDate" {% if endDate %} value="{{endDate}}" {% endif %}>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="stateName">घटक (ओं) का नाम चुनें:</label>
+            <select multiple class="chosen-select" name="stateName" required="" id="stateName" style="color:black" placeholder="Select location here..">
+                {# <option value="CS">छत्तीसगढ</option> #}
+                <option value="DNH">दादरा नगर हवेली</option>
+                <option value="DD">दमन दीव</option>
+                <option value="GO">गोवा</option>
+                <option value="MP">मध्य प्रदेश</option>
+                <option value="GU">गुजरात</option>
+                <option value="MH">महाराष्ट्र</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" class = "btn btn-success" value="submit">
+</form>
+
+{% block scripts %}
+<script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename= 'app/multiSelect.js') }}"></script>
+<script language="JavaScript" type="text/javascript" src="static/app/index.js"></script>
+<script language="JavaScript" type="text/javascript" src="static/node_modules/plotly.js-dist/plotly.js"></script>
+{# <script language="JavaScript" type="text/javascript" src="static/node_modules/chosen-js/chosen.jquery.min.js"></script> #}
+
+{% if data %}
+    {# dynamic div testing #}
+    {% for stateName,divItr, maxActual, minActual, maxSchedule, minSchedule in div_info %}
+        <div class="container mb-5">
+            <br>
+            <span class="text-dark">Max Actual:{{maxActual}}</span>
+            <span class="text-dark">Min Actual:{{minActual}}</span>
+            <span class="text-dark">Max Schedule:{{maxSchedule}}</span>
+            <span class="text-dark">Min Schedule:{{minSchedule}}</span>
+        </div>
+        <div id={{stateName}}></div>
+        {% if divItr%2==0 %}
+            <div class="pagebrk"></div>
+        {% endif %}
+    {% endfor %}
+    {% set dfData = data %}
+    <script>
+        var consName = {{ consName|safe }};
+        var stateList = {{ stateList|safe }};
+        var dfData_gGlob = {{ dfData|safe }};
+        window.onload = function() {
+            loadPlotData();
+        }
+    </script>
+{% endif %}
+    <style>
+        thead input {
+            padding: 2px;
+            box-sizing: border-box;
+            font-size: small;
+            width: 100%
+        }
+        .rightSpan{
+             float:right;
+             font-size: 22px;
+         }
+         @page{
+         size:auto;
+         }
+         @media print {
+            .pagebrk {
+                clear: both;
+                page-break-after: always;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+
+{% endblock %}
+

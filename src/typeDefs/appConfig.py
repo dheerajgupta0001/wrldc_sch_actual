@@ -4,4 +4,7 @@ import datetime as dt
 
 class IAppConfig(TypedDict):
     appDbConStr: str
-    scadaSemFolderPath: str
+    tokenUrl: str
+    apiBaseUrl: str
+    clientId: str
+    clientSecret: str

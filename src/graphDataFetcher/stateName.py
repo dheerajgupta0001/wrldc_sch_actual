@@ -5,27 +5,17 @@ def stateNameData(stateName: str):
     Returns:
         Name of the state for graph plotting!!!
     """
-    if stateName == "DN1":
+    if stateName == "DNH":
         return "दादरा नगर हवेली"
-    elif stateName == "DD1":
+    elif stateName == "DD":
         return "दमन दीव"
-    elif stateName == "GO1":
+    elif stateName == "GO":
         return "गोवा"
-    elif stateName == "CS1":
+    elif stateName == "CS":
         return "छत्तीसगढ"
-    elif stateName == "MP2":
+    elif stateName == "MP":
         return "मध्य प्रदेश"
-    elif stateName == "GU2":
+    elif stateName == "GU":
         return "गुजरात"
-    elif stateName == "HZ1":
-        return "हजीरा"
-    elif stateName == "BR1":
-        return "BARC"
-    elif stateName == "MH2":
+    elif stateName == "MH":
         return "महाराष्ट्र"
-    elif stateName == "NR1":
-        return "उत्तरी क्षेत्र"
-    elif stateName == "ER1":
-        return "पूर्वी क्षेत्र"
-    elif stateName == "SR1":
-        return "दक्षिणी क्षेत्र"
