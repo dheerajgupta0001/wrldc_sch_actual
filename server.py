@@ -74,7 +74,8 @@ def plotGraph():
                                 consName= constituentName, stateList= stateList,
                                 startDate= startDate, endDate= endDate,
                                 maxActual= maxActual, minActual= minActual,
-                                maxSchedule= maxSchedule, minSchedule= minSchedule)
+                                maxSchedule= maxSchedule, minSchedule= minSchedule,
+                                tableDiv= constituentName)
 
 
         return render_template('plotTest.html.j2')

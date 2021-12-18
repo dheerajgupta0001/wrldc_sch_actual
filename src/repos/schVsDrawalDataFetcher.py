@@ -9,6 +9,8 @@ from flask import Flask, request, jsonify, render_template
 from src.graphDataFetcher.scadaApiFetcher import ScadaApiFetcher
 from src.graphDataFetcher.scadaSchPoint import scadaSchPoint
 from src.graphDataFetcher.scadaActualPoint import scadaActualPoint
+from src.typeDefs.schActualDrawalSummary import ISchActualDrawalSummary
+from src.services.tableDataMaker import schActualTabledata
 
 # get application config
 appConfig = getConfig()
@@ -36,6 +38,11 @@ def fetchschVsDrawalData(constituentName: str, startDate: dt.datetime, endDate: 
     # print(drawalDataDf)
 
     dfData_gInd = pd.merge(schDataDf, drawalDataDf, on="TIME_STAMP")
+
+    # table data starts
+    tableDf = dfData_gInd
+    tableDf = schActualTabledata(tableDf)
+    # tsable data ends
 
     times = dfData_gInd['TIME_STAMP']
     dateList = []
