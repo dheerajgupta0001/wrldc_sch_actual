@@ -11,9 +11,9 @@ def schActualTabledata(tableDf):
     minResult = tableDf.groupby('TIME_STAMP').min()
     avgResult = tableDf.groupby('TIME_STAMP').mean()
 
-    maxResult.rename(columns = {'Schedule_Drawal':'maxSch', 'Actual_Drawal':'maxAct'}, inplace = True)
-    minResult.rename(columns = {'Schedule_Drawal':'minSch', 'Actual_Drawal':'minAct'}, inplace = True)
-    avgResult.rename(columns = {'Schedule_Drawal':'avgSch', 'Actual_Drawal':'avgAct'}, inplace = True)
+    maxResult.rename(columns = {'Schedule_Drawal':'maxSch', 'Actual_Drawal':'maxAct', 'UI_Drawal':'maxUI'}, inplace = True)
+    minResult.rename(columns = {'Schedule_Drawal':'minSch', 'Actual_Drawal':'minAct', 'UI_Drawal':'minUI'}, inplace = True)
+    avgResult.rename(columns = {'Schedule_Drawal':'avgSch', 'Actual_Drawal':'avgAct', 'UI_Drawal':'avgUI'}, inplace = True)
 
     tempData = pd.merge(maxResult, minResult, on="TIME_STAMP")
     finalData = pd.merge(tempData, avgResult, on="TIME_STAMP")
@@ -30,9 +30,12 @@ def schActualTabledata(tableDf):
             'maxSchedule': finalData['maxSch'][i],
             'minSchedule': finalData['minSch'][i],
             'avgSch': finalData['avgSch'][i],
-            'avgAct': finalData['avgAct'][i]
+            'avgAct': finalData['avgAct'][i],
+            'maxUI': finalData['maxUI'][i],
+            'minUI': finalData['minUI'][i],
+            'avgUI': finalData['avgUI'][i]
             # 'avgAct': int(round(finalData['DEVIATION'][i]))
         }
         schACtualDrawalList.append(schActual)
 
-    return tableDf
+    return schACtualDrawalList

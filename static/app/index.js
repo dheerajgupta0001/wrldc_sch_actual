@@ -4,6 +4,7 @@ function loadPlotData() {
         var dfData_g = dfData_gGlob[maesIterGlob]
         console.log(dfData_g)
         var dateKeyName = 'TIME_STAMP';
+        var uiKeyName = 'UI_Drawal';
         var TIME_STAMP = dfData_g[dateKeyName];
         // create traces array
         traces = [];
@@ -13,12 +14,23 @@ function loadPlotData() {
             if (meas == dateKeyName) {
                 continue;
             }
-            var trace = {
-                x: TIME_STAMP,
-                y: dfData_g[meas],
-                mode: 'lines',
-                name: meas
-            };
+            if (meas == uiKeyName) {
+                var trace = {
+                    x: TIME_STAMP,
+                    y: dfData_g[meas],
+                    yaxis: 'y2',
+                    mode: 'lines',
+                    name: meas
+                }
+            }
+            else{
+                var trace = {
+                    x: TIME_STAMP,
+                    y: dfData_g[meas],
+                    mode: 'lines',
+                    name: meas
+                };
+            }
             traces.push(trace);
         }
         var layout = {
@@ -31,8 +43,14 @@ function loadPlotData() {
                 }
             },
             showlegend: true,
-            legend: { "orientation": "v" },
-            paper_bgcolor: "#e5e5e5"
+            legend: { "orientation": "h" },
+            paper_bgcolor: "#e5e5e5",
+            yaxis2: {
+                titlefont: {color: 'rgb(148, 103, 189)'},
+                tickfont: {color: 'rgb(148, 103, 189)'},
+                overlaying: 'y',
+                side: 'right'
+              }
         };
         Plotly.newPlot(consName[maesIterGlob], traces, layout);
     }

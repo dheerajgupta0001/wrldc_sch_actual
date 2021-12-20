@@ -10,3 +10,6 @@ class ISchActualDrawalSummary(TypedDict):
     minSchedule: float
     avgSch: float
     avgAct: float
+    maxUI: float
+    minUI: float
+    avgUI: float

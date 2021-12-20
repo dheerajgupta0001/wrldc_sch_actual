@@ -58,16 +58,37 @@
 
 {% if data %}
     {# dynamic div testing #}
-    {% for stateName,divItr, maxActual, minActual, maxSchedule, minSchedule in div_info %}
-        <div class="container mb-5">
-            <br>
-            <span class="text-dark">Max Actual:{{maxActual}}</span>
-            <span class="text-dark">Min Actual:{{minActual}}</span>
-            <span class="text-dark">Max Schedule:{{maxSchedule}}</span>
-            <span class="text-dark">Min Schedule:{{minSchedule}}</span>
+    {% for stateName, divItr, tableDiv, tableDf in div_info %}
+        <div id={{stateName}} style="display:inline-block; width:66%; height: 100%; background-color:#fff; "></div>
+
+        {# Test table strats #}
+        <div id={{tableDiv}} style="display:inline-block; width:33%; height: 100%; background-color:#fff; ">
+            <table id={{tableDiv}} class="table table-bordered table-hover display w-auto">
+                <thead>
+                    <tr>
+                    <th class="th-sm">Date</th>
+                    <th class="th-sm">maxActual</th>
+                    <th class="th-sm">minActual</th>
+                    <th class="th-sm">maxSchedule</th>
+                    <th class="th-sm">minSchedule</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in tableDf %}
+                    <tr>
+                        <th>{{row['date']}}</th>
+                        <th>{{row['maxActual']}}</th>
+                        <th>{{row['minActual']}}</th>
+                        <th>{{row['maxSchedule']}}</th>
+                        <th>{{row['minSchedule']}}</th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div id={{stateName}} style="display:inline-block; width:75%; height: 100%; background-color:#fff; "></div>
-        <div id={{stateName}} style="display:inline-block; width:25%; height: 100%; background-color:#fff; "></div>
+        {# test table ends #}
+
+
         {% if divItr%2==0 %}
             <div class="pagebrk"></div>
         {% endif %}

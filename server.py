@@ -14,6 +14,7 @@ from src.config.appConfig import getConfig
 from src.graphDataFetcher.stateName import stateNameData
 from src.graphDataFetcher.scadaApiFetcher import ScadaApiFetcher
 from src.repos.schVsDrawalDataFetcher import fetchschVsDrawalData
+from src.services.tableDivName import tableDivNameRet
 
 app = Flask(__name__)
 
@@ -42,40 +43,35 @@ def plotGraph():
         # print(constituentName)
 
         # multiple div dynamically
-        maxActual = []
-        minActual = []
-        maxSchedule = []
-        minSchedule = []
+        # maxActual = []
+        # minActual = []
+        # maxSchedule = []
+        # minSchedule = []
         dfData_g = []
         stateList = []
         divItrs = []
+        tableDiv = []
+        tableDf_g = []
         for cItr, stateName in enumerate(constituentName):
-            print(stateName)
-            dfData_gInd, maxActualTemp, minActualTemp, maxScheduleTemp, minScheduleTemp = fetchschVsDrawalData(stateName, startDate, endDate)
-            # print(dfData_gInd["TIME_STAMP"])
+            # print(stateName)
+            dfData_gInd, tableDf = fetchschVsDrawalData(stateName, startDate, endDate)
+            # print(dfData_gInd)
+            # print(tableDf)
             state= stateNameData(stateName)
             stateList.append(state)
+            tableDiv.append(tableDivNameRet(stateName))
             dfData_g.append(dfData_gInd)
             divItrs.append(cItr+1)
-
-            # max min act sch
-            maxActual.append(maxActualTemp)
-            minActual.append(minActualTemp)
-            maxSchedule.append(maxScheduleTemp)
-            minSchedule.append(minScheduleTemp)
-            #  end
+            tableDf_g.append(tableDf)
 
         startDate = dt.datetime.strftime(startDate, '%Y-%m-%d')
         endDate = dt.datetime.strftime(endDate, '%Y-%m-%d')
-        div_info = zip(constituentName, divItrs, maxActual, minActual, maxSchedule, minSchedule)
-        # print(stateList)
+        div_info = zip(constituentName, divItrs, tableDiv, tableDf_g)
 
         return render_template('plotTest.html.j2', data= dfData_g, div_info= div_info,
                                 consName= constituentName, stateList= stateList,
                                 startDate= startDate, endDate= endDate,
-                                maxActual= maxActual, minActual= minActual,
-                                maxSchedule= maxSchedule, minSchedule= minSchedule,
-                                tableDiv= constituentName)
+                                tableDiv= tableDiv)
 
 
         return render_template('plotTest.html.j2')

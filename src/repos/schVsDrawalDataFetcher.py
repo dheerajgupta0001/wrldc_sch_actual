@@ -38,10 +38,13 @@ def fetchschVsDrawalData(constituentName: str, startDate: dt.datetime, endDate: 
     # print(drawalDataDf)
 
     dfData_gInd = pd.merge(schDataDf, drawalDataDf, on="TIME_STAMP")
+    dfData_gInd["UI_Drawal"] = dfData_gInd["Actual_Drawal"] - dfData_gInd["Schedule_Drawal"]
 
     # table data starts
-    tableDf = dfData_gInd
+    # tableDf = pd.DataFrame()
+    tableDf = dfData_gInd.copy(deep=True)
     tableDf = schActualTabledata(tableDf)
+    # print(tableDf)
     # tsable data ends
 
     times = dfData_gInd['TIME_STAMP']
@@ -49,8 +52,8 @@ def fetchschVsDrawalData(constituentName: str, startDate: dt.datetime, endDate: 
     for col in times:
         dateList.append(dt.datetime.strftime(col, '%Y-%m-%d %H:%M:%S'))
     dfData_gInd['TIME_STAMP']= dateList
+    # print(dfData_gInd)
     resRecords = dfData_gInd.to_dict(orient='list')
-    # print(resRecords)
 
     # max min act sch
     maxActual = round(dfData_gInd['Actual_Drawal'].max())
@@ -59,4 +62,4 @@ def fetchschVsDrawalData(constituentName: str, startDate: dt.datetime, endDate: 
     minSchedule = round(dfData_gInd['Schedule_Drawal'].min())
     #  end
 
-    return resRecords, maxActual, minActual, maxSchedule, minSchedule
+    return resRecords, tableDf
